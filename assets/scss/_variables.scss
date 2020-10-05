@@ -1,8 +1,13 @@
 /**
+* overriding vuetify default
+**/
+$body-font-family: 'Helvetica', 'Noto Sans TC';
+
+/**
 * colors
 **/
 $--color-primary: #24526d;
-$--color-active: #c17044;
+$--color-active: #f99130;
 $--color-secondary: #0d1c29;
 $--color-bright-orange: #f0d7ab;
 // $--color-accent: #00417b;

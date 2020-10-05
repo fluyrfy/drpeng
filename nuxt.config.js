@@ -12,7 +12,8 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100&display=swap' }
     ]
   },
   /*
@@ -35,8 +36,17 @@ export default {
   */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify'
   ],
+  /*
+  ** vuetify settings
+  */
+  vuetify: {
+    treeShake: true,
+    defaultAssets: false,
+    customVariables: ['~/assets/scss/_variables.scss']
+  },
   /*
   ** Nuxt.js modules
   */

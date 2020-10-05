@@ -3,7 +3,7 @@
     <div>
       <logo />
       <h1 class="title">
-        nuxtcore
+        測試
       </h1>
       <h2 class="subtitle">
         nuxt core for nuxt project
