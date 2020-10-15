@@ -1,16 +1,23 @@
 <template>
   <div class="base-search">
-    <v-icon>
-      $map
-    </v-icon>
     <v-text-field
       v-model="searchText"
-      prepend-inner-icon="$search"
       append-icon="$close"
       outlined
       dense
+      class="white"
+      hide-details="auto"
       @click:append="clear"
-    />
+    >
+      <template slot="prepend-inner">
+        <v-icon>$map</v-icon>
+        <v-divider
+          class="mx-2"
+          vertical
+        />
+        <v-icon>$search</v-icon>
+      </template>
+    </v-text-field>
   </div>
 </template>
 
