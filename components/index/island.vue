@@ -1,11 +1,12 @@
 <template>
-  <div class="bg">
+  <div class="bg in">
     <div class="bg-inner">
       <div
         v-for="(subject, index) in subjects"
         :key="index"
         :style="`left: ${index * 300 + 50}px; top: ${(index + 1) % 2 * 20 + 20}vh`"
-        :class="index % 2 == 0 ? 'island' : 'island rotate'"
+        :class="siwtchClass(index)"
+        @click="enlarge(index)"
       >
         <img
           src="~assets/img/map/island.png"
@@ -19,6 +20,7 @@
 export default {
   data () {
     return {
+      selected: -1,
       subjects: [
         {
           title: 'Calculus',
@@ -42,6 +44,22 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    siwtchClass (index) {
+      let className = 'island'
+      if (index % 2 === 1) {
+        className += ' rotate'
+      }
+      if (index === this.selected) {
+        className += ' highlight'
+      }
+
+      return className
+    },
+    enlarge (index) {
+      this.selected = index
+    }
   }
 }
 </script>
@@ -56,6 +74,8 @@ export default {
   background-repeat: no-repeat;
   .bg-inner {
     position: relative;
+    width: 100%;
+    height: 100%;
     .island {
       position: absolute;
       width: 200px;
@@ -82,6 +102,19 @@ export default {
           transform: rotate(-140deg);
         }
       }
+      &.highlight {
+        // scale: 1.1;
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        left: 0 !important;
+        top: 0 !important;
+        z-index: 1001;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
       &:last-child {
         &::before {
           display: none;
@@ -89,5 +122,12 @@ export default {
       }
     }
   }
+}
+.highlight {
+    animation: clipCircleIn .6s;
+}
+@keyframes clipCircleIn {
+    0%   { clip-path: circle(0); }
+    100% { clip-path: circle(600px); }
 }
 </style>
