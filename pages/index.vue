@@ -26,8 +26,9 @@ export default {
 
 <style lang="scss" scoped>
 .map {
-  width: 100vw;
+  width: auto;
   height: 100vh;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 </style>

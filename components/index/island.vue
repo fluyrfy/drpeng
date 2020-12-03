@@ -9,8 +9,11 @@
         @click="enlarge(index)"
       >
         <img
-          src="~assets/img/map/island.png"
+          :src="(index + 1) % 12 === 0 ? require('~/assets/img/map/island-12.svg') : require(`~/assets/img/map/island-${(index + 1) % 12}.svg`)"
         >
+        <h2>
+          {{ subject.title }}
+        </h2>
       </div>
     </div>
   </div>
@@ -23,27 +26,84 @@ export default {
       selected: -1,
       subjects: [
         {
-          title: 'Calculus',
-          img: 'island.png'
+          title: 'Calculus'
         },
         {
-          title: 'Calculus',
-          img: 'island.png'
+          title: 'Calculus'
         },
         {
-          title: 'Calculus',
-          img: 'island.png'
+          title: 'Calculus'
         },
         {
-          title: 'Calculus',
-          img: 'island.png'
+          title: 'Calculus'
         },
         {
-          title: 'Calculus',
-          img: 'island.png'
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
+        },
+        {
+          title: 'Calculus'
         }
       ]
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.changeMapWidth()
+    })
   },
   methods: {
     siwtchClass (index) {
@@ -59,6 +119,15 @@ export default {
     },
     enlarge (index) {
       this.selected = index
+    },
+    changeMapWidth () {
+      const islandList = document.querySelectorAll('.island')
+      const lastIsland = islandList[islandList.length - 1]
+      const pxIndex = lastIsland.style.left.indexOf('px')
+      const lastPosition = parseInt(lastIsland.style.left.substring(0, pxIndex))
+
+      const bg = document.querySelector('.bg')
+      bg.style.width = `${lastPosition * 1.05}px`
     }
   }
 }
@@ -66,11 +135,10 @@ export default {
 
 <style lang="scss" scoped>
 .bg {
-  width: 1736px;
+  width: 1740px;
   height: 100vh;
-  background-image: url('~assets/img/map/island-map.jpg');
+  background-image: url('~assets/img/index/index-bg.jpg');
   background-size: cover;
-  // background-position: center center;
   background-repeat: no-repeat;
   .bg-inner {
     position: relative;
@@ -119,6 +187,13 @@ export default {
         &::before {
           display: none;
         }
+      }
+
+      h2 {
+        color: #5d361f;
+        position: absolute;
+        left: 55%;
+        top: 40%;
       }
     }
   }
