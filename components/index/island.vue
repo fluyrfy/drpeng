@@ -69,33 +69,6 @@ export default {
         },
         {
           title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
         }
       ]
     }
@@ -111,14 +84,24 @@ export default {
       if (index % 2 === 1) {
         className += ' rotate'
       }
-      if (index === this.selected) {
+      if (index === this.selected && (index + 1) % 12 !== 2) {
         className += ' highlight'
+      } else if (index === this.selected && (index + 1) % 12 === 2) {
+        className += ' seaHorseHighlight'
       }
 
       return className
     },
     enlarge (index) {
       this.selected = index
+      setTimeout(() => {
+        this.$router.push({
+          name: 'subject-category',
+          params: {
+            category: '456'
+          }
+        })
+      }, 1000)
     },
     changeMapWidth () {
       const islandList = document.querySelectorAll('.island')
@@ -127,7 +110,7 @@ export default {
       const lastPosition = parseInt(lastIsland.style.left.substring(0, pxIndex))
 
       const bg = document.querySelector('.bg')
-      bg.style.width = `${lastPosition * 1.05}px`
+      bg.style.width = `${lastPosition * 1.08}px`
     }
   }
 }
@@ -183,6 +166,18 @@ export default {
           height: 100%;
         }
       }
+      &.seaHorseHighlight {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1001;
+        top: 70vh !important;
+        left: 0 !important;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
       &:last-child {
         &::before {
           display: none;
@@ -194,15 +189,48 @@ export default {
         position: absolute;
         left: 55%;
         top: 40%;
+        animation-fill-mode: forwards;
       }
     }
   }
 }
 .highlight {
-    animation: clipCircleIn .6s;
+  animation: clipCircleIn 1.2s;
+  animation-fill-mode: forwards;
+
+  h2 {
+    animation-fill-mode: forwards;
+    animation: disappear .6s;
+  }
+}
+
+.seaHorseHighlight {
+  animation: clipCircleIn 1.2s;
+  animation-fill-mode: forwards;
+
+  h2 {
+    animation-fill-mode: forwards;
+    animation: disappear .6s;
+  }
 }
 @keyframes clipCircleIn {
-    0%   { clip-path: circle(0); }
-    100% { clip-path: circle(600px); }
+  0% {
+    clip-path: circle(0);
+  }
+  50% {
+    clip-path: circle(600px);
+  }
+  100% {
+    transform: scale(30);
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 </style>
