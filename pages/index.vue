@@ -1,6 +1,6 @@
 <template>
   <div>
-    <base-search />
+    <base-search v-model="searchText" />
     <div class="map">
       <island />
     </div>
@@ -15,6 +15,11 @@ export default {
   components: {
     island,
     'base-search': baseSearch
+  },
+  data () {
+    return {
+      searchText: ''
+    }
   }
 }
 </script>

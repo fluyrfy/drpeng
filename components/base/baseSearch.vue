@@ -1,13 +1,15 @@
 <template>
   <div class="base-search">
     <v-text-field
-      v-model="searchText"
+      v-bind="$attrs"
+      :value="value"
       append-icon="$close"
       outlined
       dense
-      class="white"
+      class="white base-search__text-field"
       hide-details="auto"
-      @click:append="clear"
+      @input="passToParent"
+      @click:append="onClearClick"
     >
       <template slot="prepend-inner">
         <v-icon>$map</v-icon>
@@ -23,14 +25,18 @@
 
 <script>
 export default {
-  data () {
-    return {
-      searchText: ''
+  props: {
+    value: {
+      type: [String, Number],
+      default: ''
     }
   },
   methods: {
-    clear () {
-      this.searchText = ''
+    passToParent (value) {
+      this.$emit('input', value)
+    },
+    onClearClick () {
+      this.$emit('input', '')
     }
   }
 }
@@ -44,5 +50,10 @@ export default {
   top: 30px;
   left: 15vw;
   z-index: 1000;
+
+  &__text-field {
+    color: $--color-primary !important;
+    caret-color: $--color-primary !important;
+  }
 }
 </style>
