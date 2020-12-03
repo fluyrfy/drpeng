@@ -15,6 +15,10 @@
           {{ subject.title }}
         </h2>
       </div>
+      <div
+        class="bg-transition"
+        :class="{'bg-transition__active': isTransition}"
+      />
     </div>
   </div>
 </template>
@@ -24,6 +28,7 @@ export default {
   data () {
     return {
       selected: -1,
+      isTransition: false,
       subjects: [
         {
           title: 'Calculus'
@@ -94,6 +99,16 @@ export default {
     },
     enlarge (index) {
       this.selected = index
+      const transition = document.querySelector('.bg-transition')
+      transition.style.display = 'block'
+
+      setTimeout(() => {
+        transition.style.background = '#daeff6'
+        setTimeout(() => {
+          this.isTransition = true
+        }, 1000)
+      }, 600)
+
       setTimeout(() => {
         this.$router.push({
           name: 'subject-category',
@@ -101,7 +116,7 @@ export default {
             category: '456'
           }
         })
-      }, 1000)
+      }, 2500)
     },
     changeMapWidth () {
       const islandList = document.querySelectorAll('.island')
@@ -194,6 +209,22 @@ export default {
     }
   }
 }
+
+.bg-transition {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  display: none;
+
+  &__active {
+    background: #f6ebda !important;
+    transition: all 1s;
+  }
+}
+
 .highlight {
   animation: clipCircleIn 1.2s;
   animation-fill-mode: forwards;
@@ -220,8 +251,12 @@ export default {
   50% {
     clip-path: circle(600px);
   }
+  99% {
+    opacity: 1;
+  }
   100% {
     transform: scale(30);
+    opacity: 0;
   }
 }
 
