@@ -86,9 +86,15 @@ export default {
   methods: {
     siwtchClass (index) {
       let className = 'island'
+
+      if (index === this.subjects.length - 1) {
+        className += ' last-island'
+      }
+
       if (index % 2 === 1) {
         className += ' rotate'
       }
+
       if (index === this.selected && (index + 1) % 12 !== 2) {
         className += ' highlight'
       } else if (index === this.selected && (index + 1) % 12 === 2) {
@@ -99,14 +105,53 @@ export default {
     },
     enlarge (index) {
       this.selected = index
+      let color = null
+
+      switch ((index + 1) % 12) {
+        case 1 :
+          color = '#FCF7CE'
+          break
+        case 2 :
+          color = '#D7BBAA'
+          break
+        case 3 :
+          color = '#F8EBB2'
+          break
+        case 4 :
+          color = '#DDBB98'
+          break
+        case 5 :
+          color = '#DC917E'
+          break
+        case 6 :
+          color = '#D5C5B0'
+          break
+        case 7 :
+          color = '#C6D2E3'
+          break
+        case 8 :
+          color = '#BDCA99'
+          break
+        case 9 :
+          color = '#EAB1B3'
+          break
+        case 10 :
+          color = '#D2ECF6'
+          break
+        case 11 :
+          color = '#ED7F5D'
+          break
+        case 0 :
+          color = '#C9C6A7'
+          break
+      }
+
       const transition = document.querySelector('.bg-transition')
       transition.style.display = 'block'
 
       setTimeout(() => {
-        transition.style.background = '#daeff6'
-        setTimeout(() => {
-          this.isTransition = true
-        }, 1000)
+        transition.style.background = color
+        this.isTransition = true
       }, 600)
 
       setTimeout(() => {
@@ -116,7 +161,7 @@ export default {
             category: '456'
           }
         })
-      }, 2500)
+      }, 1800)
     },
     changeMapWidth () {
       const islandList = document.querySelectorAll('.island')
@@ -135,9 +180,6 @@ export default {
 .bg {
   width: 1740px;
   height: 100vh;
-  background-image: url('~assets/img/index/index-bg.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
   .bg-inner {
     position: relative;
     width: 100%;
@@ -193,11 +235,6 @@ export default {
           height: 100%;
         }
       }
-      &:last-child {
-        &::before {
-          display: none;
-        }
-      }
 
       h2 {
         color: #5d361f;
@@ -205,6 +242,12 @@ export default {
         left: 55%;
         top: 40%;
         animation-fill-mode: forwards;
+      }
+    }
+
+    .last-island {
+      &::before {
+        display: none;
       }
     }
   }
@@ -220,8 +263,8 @@ export default {
   display: none;
 
   &__active {
-    background: #f6ebda !important;
-    transition: all 1s;
+    background: #FCF7CE !important;
+    transition: all .6s;
   }
 }
 

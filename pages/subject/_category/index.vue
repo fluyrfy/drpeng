@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .subject {
-  background: #f6ebda;
+  background:#FCF7CE;
   min-height: 100vh;
 
   &__title-section {

@@ -26,9 +26,12 @@ export default {
 
 <style lang="scss" scoped>
 .map {
-  width: auto;
+  width: 100vw;
   height: 100vh;
   overflow-x: auto;
   overflow-y: hidden;
+  background-image: url('~assets/img/index/index-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 </style>
