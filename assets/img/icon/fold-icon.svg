@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+    <defs>
+        <filter id="ek4ivis2ra" width="44" height="44" x="3" y="6" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+    </defs>
+    <g>
+        <g filter="url(#ek4ivis2ra)" transform="translate(-313 -98) translate(313 98)">
+            <circle cx="13" cy="13" r="13" fill="#74a6a5" transform="translate(12 12)"/>
+        </g>
+        <path fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2px" d="M0 0L10 0" transform="translate(-313 -98) translate(333.5 123.5)"/>
+        <path fill="none" d="M0 0H50V50H0z" transform="translate(-313 -98) translate(313 98)"/>
+    </g>
+</svg>

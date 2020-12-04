@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+    <defs>
+        <filter id="Ellipse_1" width="44" height="44" x="3" y="6" filterUnits="userSpaceOnUse">
+            <feOffset dy="3"/>
+            <feGaussianBlur result="blur" stdDeviation="3"/>
+            <feFlood flood-opacity=".161"/>
+            <feComposite in2="blur" operator="in"/>
+            <feComposite in="SourceGraphic"/>
+        </filter>
+        <style>
+            .cls-2{fill:none;stroke:#fff;stroke-linecap:round;stroke-width:2px}
+        </style>
+    </defs>
+    <g id="unfold" transform="translate(-313 -98)">
+        <g filter="url(#Ellipse_1)" transform="translate(313 98)">
+            <circle id="Ellipse_1-2" cx="13" cy="13" r="13" fill="#f99130" transform="translate(12 12)"/>
+        </g>
+        <path id="Line_7" d="M0 0L10 0" class="cls-2" transform="translate(333.5 123.5)"/>
+        <path id="Line_11" d="M0 0L10 0" class="cls-2" transform="rotate(90 110 228.5)"/>
+        <path id="Rectangle_207" fill="none" d="M0 0H50V50H0z" transform="translate(313 98)"/>
+    </g>
+</svg>
