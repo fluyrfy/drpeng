@@ -33,7 +33,7 @@
         :class="{'chapter-list__list-group--detail-active': activeChapter.indexOf(item.id) > -1}"
       >
         <ul>
-          <li>
+          <li @click="onSectionClick('999')">
             <img src="~/assets/img/icon/chapter-more-icon.svg">
             <span class="chapter-list__detail-num">
               1.1
@@ -42,7 +42,7 @@
               Four Ways to Represent a Function
             </span>
           </li>
-          <li>
+          <li @click="onSectionClick('998')">
             <img src="~/assets/img/icon/chapter-more-icon.svg">
             <span class="chapter-list__detail-num">
               1.2
@@ -98,6 +98,14 @@ export default {
       } else {
         this.activeChapter.push(id)
       }
+    },
+    onSectionClick (id) {
+      this.$router.push({
+        name: 'subject-category-section',
+        query: {
+          sectionId: id
+        }
+      })
     }
   }
 }
