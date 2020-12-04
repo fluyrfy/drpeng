@@ -19,14 +19,17 @@
       </h2>
     </section>
     <chapter-list />
+    <base-theorem-button />
   </div>
 </template>
 
 <script>
 import chapterList from '~/components/subject/chapterList'
+import baseTheoremButton from '~/components/base/baseTheoremButton'
 export default {
   components: {
-    'chapter-list': chapterList
+    'chapter-list': chapterList,
+    'base-theorem-button': baseTheoremButton
   },
   data () {
     return {
