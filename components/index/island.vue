@@ -6,13 +6,13 @@
         :key="index"
         :style="`left: ${index * 300 + 50}px; top: ${(index + 1) % 2 * 20 + 20}vh`"
         :class="siwtchClass(index)"
-        @click="enlarge(index)"
+        @click="enlarge(index, subject.id)"
       >
         <img
           :src="(index + 1) % 12 === 0 ? require('~/assets/img/map/island-12.svg') : require(`~/assets/img/map/island-${(index + 1) % 12}.svg`)"
         >
         <h2>
-          {{ subject.title }}
+          {{ subject.name }}
         </h2>
       </div>
       <div
@@ -25,57 +25,25 @@
 
 <script>
 export default {
+  props: {
+    subjects: {
+      type: Array,
+      default: () => []
+    }
+  },
   data () {
     return {
       selected: -1,
-      isTransition: false,
-      subjects: [
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
-        },
-        {
-          title: 'Calculus'
+      isTransition: false
+    }
+  },
+  watch: {
+    subjects: {
+      handler () {
+        if (this.subjects.length > 0) {
+          this.changeMapWidth()
         }
-      ]
+      }
     }
   },
   mounted () {
@@ -103,7 +71,7 @@ export default {
 
       return className
     },
-    enlarge (index) {
+    enlarge (index, id) {
       this.selected = index
       let color = null
 
@@ -158,7 +126,7 @@ export default {
         this.$router.push({
           name: 'subject-category',
           params: {
-            category: '456'
+            category: id
           }
         })
       }, 1800)

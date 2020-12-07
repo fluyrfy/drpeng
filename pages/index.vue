@@ -2,12 +2,16 @@
   <div>
     <base-search v-model="searchText" />
     <div class="map">
-      <island />
+      <island
+        v-if="subjectList.length > 0"
+        :subjects="subjectList"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import island from '~/components/index/island.vue'
 import baseSearch from '~/components/base/baseSearch.vue'
 
@@ -20,6 +24,15 @@ export default {
     return {
       searchText: ''
     }
+  },
+  computed: {
+    ...mapState('api', ['subjectList'])
+  },
+  created () {
+    this.getSubjectList()
+  },
+  methods: {
+    ...mapActions('api', ['getSubjectList'])
   }
 }
 </script>
