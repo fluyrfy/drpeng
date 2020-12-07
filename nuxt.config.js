@@ -1,4 +1,3 @@
-
 export default {
   mode: 'universal',
   /*
@@ -37,7 +36,17 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    /*
+    ** add dev and prod env to control api path
+    ** Doc: https://github.com/nuxt-community/dotenv-module/issues/59
+    */
+    [
+      '@nuxtjs/dotenv',
+      {
+        filename: process.env.ENV === 'dev' ? '.env' : '.env.' + process.env.ENV
+      }
+    ]
   ],
   /*
   ** vuetify settings
@@ -54,7 +63,8 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/dotenv'
   ],
   styleResources: {
     scss: [

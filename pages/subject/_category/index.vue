@@ -36,6 +36,11 @@ export default {
     }
   },
   mounted () {
+    // const result = await this.$axios.$get(process.env.BASE_URL + '/api' + '/subject/?status=true&ordering=-order')
+    const result = process.env.BASE_API_URL
+
+    /* eslint-disable */
+    console.log('result:', result)
   }
 }
 </script>

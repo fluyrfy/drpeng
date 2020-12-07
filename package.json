@@ -5,15 +5,17 @@
   "author": "s0939859391",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "ENV=dev nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
+    "generate": "ENV=prod nuxt generate",
+    "generate-test": "ENV=dev nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
     "@mdi/js": "^5.6.55",
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "json-schema": "^0.2.5",
     "nuxt": "^2.0.0"
@@ -24,7 +26,7 @@
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-nuxt": "1.0.0",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2"
   }
