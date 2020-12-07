@@ -1,7 +1,7 @@
 <template>
   <div class="chapter-list">
     <section
-      v-for="(item, index) in subjectList"
+      v-for="(item, index) in chapterList"
       :key="index"
       class="chapter-list__list-section"
     >
@@ -10,8 +10,11 @@
         @click="onChapterClick(item.id)"
       >
         <div class="chapter-list__list-group--list-chapter">
-          <span>
-            CH0{{ item.id }}
+          <span v-if="index + 1 < 10">
+            CH0{{ index + 1 }}
+          </span>
+          <span v-else>
+            CH{{ index + 1 }}
           </span>
         </div>
         <div class="chapter-list__list-group--list-title d-flex align-center">
@@ -33,22 +36,17 @@
         :class="{'chapter-list__list-group--detail-active': activeChapter.indexOf(item.id) > -1}"
       >
         <ul>
-          <li @click="onSectionClick('999')">
+          <li
+            v-for="(section, sectionIdx) in item.section"
+            :key="sectionIdx"
+            @click="onSectionClick(section.id)"
+          >
             <img src="~/assets/img/icon/chapter-more-icon.svg">
             <span class="chapter-list__detail-num">
-              1.1
+              {{ `${index + 1}.${sectionIdx + 1}` }}
             </span>
             <span>
-              Four Ways to Represent a Function
-            </span>
-          </li>
-          <li @click="onSectionClick('998')">
-            <img src="~/assets/img/icon/chapter-more-icon.svg">
-            <span class="chapter-list__detail-num">
-              1.2
-            </span>
-            <span>
-              Mathematical Models: A Catalog of Essential Functions
+              {{ section.name }}
             </span>
           </li>
         </ul>
@@ -60,28 +58,9 @@
 <script>
 export default {
   props: {
-    subjectList: {
+    chapterList: {
       type: Array,
-      default: () => [
-        {
-          id: 1,
-          subject: 1,
-          name: 'Functions and Limits',
-          status: true
-        },
-        {
-          id: 2,
-          subject: 1,
-          name: 'Derivatives',
-          status: true
-        },
-        {
-          id: 3,
-          subject: 1,
-          name: 'Applications of Differentiation',
-          status: true
-        }
-      ]
+      default: () => []
     }
   },
   data () {
