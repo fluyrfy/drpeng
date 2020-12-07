@@ -19,19 +19,16 @@
           </nuxt-link>
         </div>
         <h3>
-          Mathematical Models: A Catalog of Essential Functions
+          {{ sectionNow.name }}
         </h3>
       </div>
     </section>
     <section class="chapter-section__section-content">
-      <div class="chapter-section__section-content--content">
-        <p>
-          English is a West Germanic language that was first spoken in early medieval England and eventually became a global lingua franca.[4][5] It is named after the Angles, one of the ancient Germanic peoples that migrated to the area of Great Britain that later took their name, England. Both names derive from Anglia, a peninsula on the Baltic Sea. English is most closely related to Frisian and Low Saxon, while its vocabulary has been significantly influenced by other Germanic languages, particularly Old Norse (a North Germanic language), as well as Latin and French.
-        </p>
-        <p>
-          English has developed over the course of more than 1,400 years. The earliest forms of English, a group of West Germanic (Ingvaeonic) dialects brought to Great and
-        </p>
-      </div>
+      <!-- eslint-disable vue/no-v-html -->
+      <div
+        class="chapter-section__section-content--content"
+        v-html="sectionNow.content"
+      />
     </section>
     <div
       class="chapter-section__video-tag"
@@ -54,6 +51,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -61,8 +59,16 @@ export default {
       isVideoActive: false
     }
   },
+  computed: {
+    ...mapState('api', ['chapterNow', 'sectionNow'])
+  },
   mounted () {
     this.backParams = this.$route.params.category
+    const id = this.$route.query.sectionId
+    this.getSection(id)
+  },
+  methods: {
+    ...mapActions('api', ['getSection'])
   }
 }
 </script>

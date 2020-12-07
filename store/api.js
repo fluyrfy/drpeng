@@ -2,7 +2,9 @@ const state = () => ({
   subjectList: [],
   chapterList: [],
   sectionList: [],
-  subjectNow: {}
+  subjectNow: {},
+  chapterNow: {},
+  sectionNow: {}
 })
 
 const actions = {
@@ -19,6 +21,12 @@ const actions = {
     ])
 
     commit('setChapterList', { result, subject, sectionList })
+  },
+  async getSection ({ commit }, id) {
+    const section = await this.$axios.$get(`${process.env.BASE_API_URL}section/${id}`)
+    const chapter = await this.$axios.$get(`${process.env.BASE_API_URL}section/${section.chapter}`)
+
+    commit('setSection', { section, chapter })
   }
 }
 
@@ -30,6 +38,10 @@ const mutations = {
     state.chapterList = data.result
     state.subjectNow = data.subject
     state.sectionList = data.sectionList
+  },
+  setSection (state, data) {
+    state.sectionNow = data.section
+    state.chapterNow = data.chapter
   }
 }
 
