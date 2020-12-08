@@ -3,6 +3,7 @@
     <div class="bg-inner">
       <div
         v-for="(subject, index) in subjects"
+        :id="subject.id"
         :key="index"
         :style="`left: ${index * 300 + 50}px; top: ${(index + 1) % 2 * 20 + 20}vh`"
         :class="siwtchClass(index)"

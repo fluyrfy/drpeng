@@ -31,9 +31,24 @@ export default {
   },
   async mounted () {
     await this.getSubjectList()
+    this.scrollToTarget()
   },
   methods: {
-    ...mapActions('api', ['getSubjectList'])
+    ...mapActions('api', ['getSubjectList']),
+    scrollToTarget () {
+      const subjectId = this.$route.query.subject
+
+      if (!subjectId) {
+        return
+      }
+
+      const map = document.querySelector('.map')
+      const target = document.getElementById(subjectId).style.left
+      const pxIndex = target.indexOf('px')
+      const targetPosition = target.slice(0, pxIndex)
+
+      map.scrollLeft += targetPosition
+    }
   }
 }
 </script>
