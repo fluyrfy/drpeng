@@ -38,15 +38,6 @@ export default {
       isTransition: false
     }
   },
-  watch: {
-    subjects: {
-      handler () {
-        if (this.subjects.length > 0) {
-          this.changeMapWidth()
-        }
-      }
-    }
-  },
   mounted () {
     this.$nextTick(() => {
       this.changeMapWidth()

@@ -20,6 +20,21 @@
         <v-icon>$search</v-icon>
       </template>
     </v-text-field>
+    <div
+      v-if="needToShow"
+      class="base-search__auto-complete"
+    >
+      <p
+        v-for="(item, index) in filterOptions"
+        :key="index"
+        @click="passToParent(item.name)"
+      >
+        {{ item.name }}
+      </p>
+      <span v-if="!filterOptions.length">
+        no result
+      </span>
+    </div>
   </div>
 </template>
 
@@ -29,14 +44,48 @@ export default {
     value: {
       type: [String, Number],
       default: ''
+    },
+    options: {
+      type: Array,
+      default: () => []
     }
+  },
+  data () {
+    return {
+      needToShow: false,
+      keyword: null
+    }
+  },
+  computed: {
+    filterOptions () {
+      if (!this.keyword) {
+        return this.options
+      }
+
+      return this.options.filter((item) => {
+        return item.name.includes(this.keyword)
+      })
+    }
+  },
+  mounted () {
+    document.addEventListener('click', this.hideAutoComplete)
+  },
+  destroyed () {
+    document.removeEventListener('click', this.hideAutoComplete)
   },
   methods: {
     passToParent (value) {
+      this.keyword = value
+      this.needToShow = true
       this.$emit('input', value)
     },
     onClearClick () {
+      this.needToShow = false
+      this.keyword = null
       this.$emit('input', '')
+    },
+    hideAutoComplete () {
+      this.needToShow = false
     }
   }
 }
@@ -54,6 +103,20 @@ export default {
   &__text-field {
     color: $--color-primary !important;
     caret-color: $--color-primary !important;
+  }
+
+  &__auto-complete {
+    position: absolute;
+    width: 100%;
+    background: white;
+    text-align: center;
+    padding: 8px;
+
+    p {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 </style>

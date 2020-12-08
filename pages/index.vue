@@ -1,11 +1,14 @@
 <template>
   <div>
     <loading :active.sync="isLoading" />
-    <base-search v-model="searchText" />
+    <base-search
+      v-model="searchText"
+      :options="subjectList"
+    />
     <div class="map">
       <island
         v-if="subjectList.length > 0"
-        :subjects="subjectList"
+        :subjects="filterSubjectList"
       />
     </div>
   </div>
@@ -27,7 +30,16 @@ export default {
     }
   },
   computed: {
-    ...mapState('api', ['subjectList', 'isLoading'])
+    ...mapState('api', ['subjectList', 'isLoading']),
+    filterSubjectList () {
+      if (!this.searchText) {
+        return this.subjectList
+      }
+
+      return this.subjectList.filter((item) => {
+        return item.name.includes(this.searchText)
+      })
+    }
   },
   async mounted () {
     await this.getSubjectList()
