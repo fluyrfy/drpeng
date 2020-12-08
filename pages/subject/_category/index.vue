@@ -1,5 +1,6 @@
 <template>
   <div class="subject">
+    <loading :active.sync="isLoading" />
     <section
       class="subject__title-section d-flex justify-center align-center"
     >
@@ -40,7 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('api', ['chapterList', 'subjectNow', 'sectionList']),
+    ...mapState('api', ['chapterList', 'subjectNow', 'sectionList', 'isLoading']),
     subjectId () {
       if (!this.$route.params.category) {
         return ''
@@ -75,8 +76,10 @@ export default {
       return chapterListAddSection
     }
   },
-  created () {
-    this.getChapterList(this.subjectId)
+  async mounted () {
+    if (this.subjectId) {
+      await this.getChapterList(this.subjectId)
+    }
   },
   methods: {
     ...mapActions('api', ['getChapterList'])

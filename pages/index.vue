@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading" />
     <base-search v-model="searchText" />
     <div class="map">
       <island
@@ -26,10 +27,10 @@ export default {
     }
   },
   computed: {
-    ...mapState('api', ['subjectList'])
+    ...mapState('api', ['subjectList', 'isLoading'])
   },
-  created () {
-    this.getSubjectList()
+  async mounted () {
+    await this.getSubjectList()
   },
   methods: {
     ...mapActions('api', ['getSubjectList'])

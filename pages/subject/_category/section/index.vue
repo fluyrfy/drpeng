@@ -1,5 +1,6 @@
 <template>
   <div class="chapter-section">
+    <loading :active.sync="isLoading" />
     <section class="chapter-section__title-section">
       <p>
         SECTION {{ $route.query.section }}
@@ -60,12 +61,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('api', ['chapterNow', 'sectionNow'])
+    ...mapState('api', ['sectionNow', 'isLoading'])
   },
-  mounted () {
+  async mounted () {
     this.backParams = this.$route.params.category
     const id = this.$route.query.sectionId
-    this.getSection(id)
+    await this.getSection(id)
   },
   methods: {
     ...mapActions('api', ['getSection'])

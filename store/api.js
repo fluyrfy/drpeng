@@ -3,7 +3,6 @@ const state = () => ({
   chapterList: [],
   sectionList: [],
   subjectNow: {},
-  chapterNow: {},
   sectionNow: {},
   isLoading: false
 })
@@ -17,6 +16,9 @@ const actions = {
     commit('changeLoadingStatus', false)
   },
   async getChapterList ({ commit }, id) {
+    if (!id) {
+      return
+    }
     commit('changeLoadingStatus', true)
     const [result, subject, sectionList] = await Promise.all([
       this.$axios.$get(`${process.env.BASE_API_URL}chapter/?status=true&ordering=-order&subject=${id}`),
@@ -28,11 +30,13 @@ const actions = {
     commit('changeLoadingStatus', false)
   },
   async getSection ({ commit }, id) {
+    if (!id) {
+      return
+    }
     commit('changeLoadingStatus', true)
     const section = await this.$axios.$get(`${process.env.BASE_API_URL}section/${id}`)
-    const chapter = await this.$axios.$get(`${process.env.BASE_API_URL}section/${section.chapter}`)
 
-    commit('setSection', { section, chapter })
+    commit('setSection', section)
     commit('changeLoadingStatus', false)
   }
 }
@@ -49,9 +53,8 @@ const mutations = {
     state.subjectNow = data.subject
     state.sectionList = data.sectionList
   },
-  setSection (state, data) {
-    state.sectionNow = data.section
-    state.chapterNow = data.chapter
+  setSection (state, section) {
+    state.sectionNow = section
   }
 }
 

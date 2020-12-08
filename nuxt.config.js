@@ -1,3 +1,4 @@
+import axios from 'axios'
 export default {
   mode: 'universal',
   /*
@@ -29,6 +30,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-loading-overlay'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -94,6 +96,24 @@ export default {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  generate: {
+    interval: 1000,
+    async routes () { // dynamic route to generate subject page
+      const subject = await axios.get(`${process.env.BASE_API_URL_GENERATE}subject/?status=true&ordering=-order`)
+
+      const subjectRoute = subject.data.map((item) => {
+        return `/subject/${item.id}`
+      })
+
+      const sectionList = subject.data.map((item) => {
+        return `/subject/${item.id}/section`
+      })
+
+      const routeList = [...subjectRoute, ...sectionList]
+
+      return routeList
     }
   }
 }
