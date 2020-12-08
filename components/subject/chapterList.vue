@@ -39,7 +39,7 @@
           <li
             v-for="(section, sectionIdx) in item.section"
             :key="sectionIdx"
-            @click="onSectionClick(section.id)"
+            @click="onSectionClick(section.id, `${index + 1}.${sectionIdx + 1}`)"
           >
             <img src="~/assets/img/icon/chapter-more-icon.svg">
             <span class="chapter-list__detail-num">
@@ -78,11 +78,12 @@ export default {
         this.activeChapter.push(id)
       }
     },
-    onSectionClick (id) {
+    onSectionClick (id, section) {
       this.$router.push({
         name: 'subject-category-section',
         query: {
-          sectionId: id
+          sectionId: id,
+          section
         }
       })
     }

@@ -2,7 +2,7 @@
   <div class="chapter-section">
     <section class="chapter-section__title-section">
       <p>
-        SECTION 1.7
+        SECTION {{ $route.query.section }}
       </p>
       <div class="chapter-section__title-group d-flex">
         <div class="chapter-section__title-group--back-button">
