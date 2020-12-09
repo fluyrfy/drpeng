@@ -67,12 +67,15 @@
             Read more
           </span>
         </button>
-        <button class="chapter-section__popup-block--button chapter-section__popup-block--button-map">
+        <nuxt-link
+          class="chapter-section__popup-block--button chapter-section__popup-block--button-map"
+          to="/theorem"
+        >
           <img src="~/assets/img/icon/map-icon.svg">
           <span>
             Check map
           </span>
-        </button>
+        </nuxt-link>
         <div
           class="chapter-section__popup-block--close"
           @click="isShowPopup = false"

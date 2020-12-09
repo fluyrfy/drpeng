@@ -1,7 +1,6 @@
 import {
   mdiMagnify,
-  mdiClose,
-  mdiMap
+  mdiClose
 } from '@mdi/js'
 
 export default {
@@ -9,8 +8,7 @@ export default {
     iconFont: 'mdiSvg',
     values: {
       search: mdiMagnify,
-      close: mdiClose,
-      map: mdiMap
+      close: mdiClose
     }
   }
 }

@@ -12,7 +12,7 @@
       @click:append="onClearClick"
     >
       <template slot="prepend-inner">
-        <v-icon>$map</v-icon>
+        <img src="~/assets/img/icon/search-map-icon.svg">
         <v-divider
           class="mx-2"
           vertical

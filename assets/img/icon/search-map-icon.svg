@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="29" height="28" viewBox="0 0 29 28">
+    <defs>
+        <style>
+            .cls-1{fill:none;stroke:#858585;stroke-linecap:round;stroke-linejoin:round;stroke-width:3px}
+        </style>
+    </defs>
+    <g id="map_icon" transform="translate(1.5 1.5)">
+        <path id="Path_31" d="M241.176 129.217V108l3.909 1.619 4.576 1.895v21.217z" class="cls-1" transform="translate(-241.176 -108)"/>
+        <path id="Path_32" d="M248.02 129.243v-21.222l7.72 3.706v21.225z" class="cls-1" transform="translate(-229.74 -107.952)"/>
+        <path id="Path_33" d="M244.451 111.492l9.246-3.451v21.211l-9.246 3.451z" class="cls-1" transform="translate(-235.784 -107.906)"/>
+    </g>
+</svg>

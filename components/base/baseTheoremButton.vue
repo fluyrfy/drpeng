@@ -1,10 +1,17 @@
 <template>
-  <div class="base-theorem-button pointer" />
+  <div
+    class="base-theorem-button pointer"
+    @click="onTheoremButtonClick"
+  />
 </template>
 
 <script>
 export default {
-
+  methods: {
+    onTheoremButtonClick () {
+      this.$router.push('/theorem')
+    }
+  }
 }
 </script>
 
