@@ -48,6 +48,41 @@
         <img src="~/assets/img/icon/youku-icon.png">
       </div>
     </div>
+    <img
+      src="~/assets/img/icon/note-icon.svg"
+      class="chapter-section__note"
+      @click="isShowPopup = true"
+    >
+    <div
+      class="chapter-section__note-popup"
+      :class="{'chapter-section__note-popup--active': isShowPopup}"
+    >
+      <div class="chapter-section__popup-block">
+        <p class="chapter-section__popup-block--hint">
+          該處使用_______定理，您可以查看定理證明過程或選擇觀看定理地圖。
+        </p>
+        <button class="chapter-section__popup-block--button chapter-section__popup-block--button-more">
+          <img src="~/assets/img/icon/map-icon.svg">
+          <span>
+            Read more
+          </span>
+        </button>
+        <button class="chapter-section__popup-block--button chapter-section__popup-block--button-map">
+          <img src="~/assets/img/icon/map-icon.svg">
+          <span>
+            Check map
+          </span>
+        </button>
+        <div
+          class="chapter-section__popup-block--close"
+          @click="isShowPopup = false"
+        >
+          <v-icon class="chapter-section__popup-block--close-icon">
+            $close
+          </v-icon>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,7 +92,8 @@ export default {
   data () {
     return {
       backParams: null,
-      isVideoActive: false
+      isVideoActive: false,
+      isShowPopup: false
     }
   },
   computed: {
@@ -76,6 +112,7 @@ export default {
 
 <style lang="scss" scoped>
 .chapter-section {
+  position: relative;
   &__title-section {
     background: #556978;
     color: white;
@@ -182,6 +219,90 @@ export default {
     &__active {
       transform: translateX(0);
       transition: all .5s;
+    }
+  }
+
+  &__note {
+    position: absolute;
+    top: 240px;
+    right: 5%;
+  }
+
+  &__note-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba($color: black, $alpha: 0.6);
+    justify-content: center;
+    align-items: center;
+    display: none;
+
+    &--active {
+      display: flex;
+    }
+  }
+
+  &__popup-block {
+    height: 300px;
+    width: 66.67%;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    padding: 40px 29px 22px 30px;
+    position: relative;
+
+    &--hint {
+      font-size: 18px;
+      color: #8e8e8e;
+      line-height: 1.33;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    &--button {
+      display: inline-flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.33;
+      padding: 13px 0;
+      border-radius: 4px;
+
+      img {
+        margin-right: 17px;
+      }
+    }
+
+    &--button-more {
+      background: #f99130;
+    }
+
+    &--button-map {
+      background: #556978;
+      margin-top: 7px;
+    }
+
+    &--close {
+      border-radius: 50%;
+      background: #8e8e8e;
+      color: white;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: -15px;
+      right: -15px;
+    }
+
+    &--close-icon {
+      color: white !important;
     }
   }
 }
