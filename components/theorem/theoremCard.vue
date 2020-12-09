@@ -31,7 +31,7 @@
           STEP 03
           <img src="~/assets/img/icon/arrow.svg">
         </div>
-        <div class="theorem-card__step theorem-card__step--fourth">
+        <div class="theorem-card__step theorem-card__step--first">
           STEP 04
           <img src="~/assets/img/icon/arrow.svg">
         </div>
@@ -140,18 +140,14 @@ export default {
     }
 
     &--first {
-      background: #daeff6;
-    }
-
-    &--second {
       background: #f6ebda;
     }
 
-    &--third {
+    &--second {
       background: #e3d2c6;
     }
 
-    &--fourth {
+    &--third {
       background: #e3c6c6;
     }
   }

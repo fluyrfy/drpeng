@@ -61,21 +61,26 @@
         <p class="chapter-section__popup-block--hint">
           該處使用_______定理，您可以查看定理證明過程或選擇觀看定理地圖。
         </p>
-        <button class="chapter-section__popup-block--button chapter-section__popup-block--button-more">
-          <img src="~/assets/img/icon/map-icon.svg">
+        <a
+          class="chapter-section__popup-block--button chapter-section__popup-block--button-more"
+          href="/theorem"
+          target="_blank"
+        >
+          <img src="~/assets/img/icon/readmore-icon.svg">
           <span>
             Read more
           </span>
-        </button>
-        <nuxt-link
+        </a>
+        <a
           class="chapter-section__popup-block--button chapter-section__popup-block--button-map"
-          to="/theorem"
+          href="/theorem"
+          target="_blank"
         >
           <img src="~/assets/img/icon/map-icon.svg">
           <span>
             Check map
           </span>
-        </nuxt-link>
+        </a>
         <div
           class="chapter-section__popup-block--close"
           @click="isShowPopup = false"
