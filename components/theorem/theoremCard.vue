@@ -1,7 +1,9 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div
     class="theorem-card"
     :style="`left: ${cardInfo.sort * 300 + 60}px; top: ${randomTop * 15 + cardInfo.sort + 15}vh`"
+    @click="onCardClick"
   >
     <div class="theorem-card__title-group d-flex justify-center align-center">
       <img
@@ -20,7 +22,12 @@
           </span>
         </div>
       </div>
-      <img src="~/assets/img/theorem/theorem-demo.jpg">
+      <div class="theorem-card__formula">
+        <span
+          :ref="`mathJaxEl${cardInfo.sort}`"
+          v-html="cardInfo.mathml"
+        />
+      </div>
       <div class="theorem-card__step-section">
         <div class="theorem-card__step theorem-card__step--first">
           STEP 01
@@ -61,6 +68,29 @@ export default {
 
       return randomNum
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.renderMathJax()
+    })
+  },
+  methods: {
+    renderMathJax () {
+      /* eslint-disable-next-line */
+      MathJax.Hub.Config({
+        'HTML-CSS': { linebreaks: { automatic: true } }
+      })
+      /* eslint-disable-next-line */
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+    },
+    onCardClick () {
+      this.$router.push({
+        name: 'theorem-detail',
+        query: {
+          id: this.cardInfo.id
+        }
+      })
+    }
   }
 }
 </script>
@@ -100,6 +130,12 @@ export default {
       width: 80%;
       margin-top: 15px;
     }
+  }
+
+  &__formula {
+    width: 80%;
+    margin-top: 15px;
+    font-size: 12px;
   }
 
   &__subtitle-group {

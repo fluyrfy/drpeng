@@ -1,17 +1,30 @@
 <template>
   <div class="theorem-detail">
-    <theorem-card-deatil />
+    <loading :active.sync="isLoading" />
+    <theorem-card-deatil
+      :card-info="formulaDetail"
+    />
     <base-subject-button />
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import baseSubjectButton from '~/components/base/baseSubjectButton.vue'
 import theoremCardDetail from '~/components/theorem-detail/theoremCardDetail.vue'
 export default {
   components: {
     'theorem-card-deatil': theoremCardDetail,
     'base-subject-button': baseSubjectButton
+  },
+  computed: {
+    ...mapState('api', ['formulaDetail', 'isLoading'])
+  },
+  async mounted () {
+    await this.getFormulaDetail(this.$route.query.id)
+  },
+  methods: {
+    ...mapActions('api', ['getFormulaDetail'])
   }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div class="theorem-card-detail">
     <div class="theorem-card-detail__title-group d-flex align-center">
       <img src="~/assets/img/icon/pix.svg">
@@ -14,10 +15,11 @@
           </span>
         </div>
       </div>
-      <img
-        class="theorem-card-detail__theorem-demo"
-        src="~/assets/img/theorem/theorem-demo.jpg"
-      >
+      <div class="theorem-card-detail__formula">
+        <span
+          v-html="cardInfo.mathml"
+        />
+      </div>
       <div class="theorem-card-detail__step-section">
         <div
           v-for="(item, index) in stepList"
@@ -55,11 +57,31 @@
 
 <script>
 export default {
+  props: {
+    cardInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data () {
     return {
       stepList: [1, 2, 3, 4],
       stepActiveList: []
     }
+  },
+  watch: {
+    cardInfo: {
+      handler () {
+        this.$nextTick(() => {
+          this.renderMathJax()
+        })
+      }
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.renderMathJax()
+    })
   },
   methods: {
     onStepTitleClick (item) {
@@ -69,6 +91,14 @@ export default {
       } else {
         this.stepActiveList.push(item)
       }
+    },
+    renderMathJax () {
+      /* eslint-disable-next-line */
+      MathJax.Hub.Config({
+        'HTML-CSS': { linebreaks: { automatic: true } }
+      })
+      /* eslint-disable-next-line */
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub])
     }
   }
 }
@@ -103,7 +133,7 @@ export default {
     position: relative;
   }
 
-  &__theorem-demo {
+  &__formula {
     width: 80%;
     margin-top: 15px;
   }
