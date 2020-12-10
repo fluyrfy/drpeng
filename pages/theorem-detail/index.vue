@@ -3,6 +3,7 @@
     <loading :active.sync="isLoading" />
     <theorem-card-deatil
       :card-info="formulaDetail"
+      :step-list="formulaStep"
     />
     <base-subject-button />
   </div>
@@ -18,7 +19,7 @@ export default {
     'base-subject-button': baseSubjectButton
   },
   computed: {
-    ...mapState('api', ['formulaDetail', 'isLoading'])
+    ...mapState('api', ['formulaDetail', 'formulaStep', 'isLoading'])
   },
   middleware ({ route, redirect }) {
     if (!route.query.id) {

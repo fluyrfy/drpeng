@@ -6,6 +6,7 @@ const state = () => ({
   subjectNow: {},
   sectionNow: {},
   formulaDetail: {},
+  formulaStep: [],
   isLoading: false
 })
 
@@ -50,9 +51,12 @@ const actions = {
   },
   async getFormulaDetail ({ commit }, id) {
     commit('changeLoadingStatus', true)
-    const result = await this.$axios.$get(`${process.env.BASE_API_URL}function/${id}`)
+    const [result, stepResult] = await Promise.all([
+      this.$axios.$get(`${process.env.BASE_API_URL}function/${id}`),
+      this.$axios.$get(`${process.env.BASE_API_URL}function_proof/?ordering=order&function=${id}`)
+    ])
 
-    commit('setFormulaDetail', result)
+    commit('setFormulaDetail', { result, stepResult })
     commit('changeLoadingStatus', false)
   }
 }
@@ -76,7 +80,8 @@ const mutations = {
     state.randomFormulaList = data
   },
   setFormulaDetail (state, data) {
-    state.formulaDetail = data
+    state.formulaDetail = data.result
+    state.formulaStep = data.stepResult
   }
 }
 

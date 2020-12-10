@@ -46,7 +46,10 @@
             class="theorem-card-detail__step-content"
             :class="{'theorem-card-detail__step-content--active': stepActiveList.indexOf(item) > -1}"
           >
-            <img src="~/assets/img/theorem/theorem-demo2.jpg">
+            <div
+              class="theorem-card-detail__step-wrap"
+              v-html="item.proof"
+            />
           </div>
           <div class="theorem-card-detail__step-connect-line" />
         </div>
@@ -61,11 +64,14 @@ export default {
     cardInfo: {
       type: Object,
       default: () => ({})
+    },
+    stepList: {
+      type: Array,
+      default: () => []
     }
   },
   data () {
     return {
-      stepList: [1, 2, 3, 4],
       stepActiveList: []
     }
   },
@@ -216,15 +222,20 @@ export default {
   &__step-content {
     background: white;
     padding: 10px 15px;
-    overflow: hidden;
+    overflow: scroll;
     display: none;
-
-    img {
-      width: 100%;
-    }
 
     &--active {
       display: block;
+    }
+  }
+
+  &__step-wrap {
+    margin-top: 10px;
+
+    &::v-deep .mjx-chtml {
+      white-space: normal;
+      min-width: auto !important;
     }
   }
 
