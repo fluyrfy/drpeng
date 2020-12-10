@@ -46,6 +46,7 @@
           >
             <img src="~/assets/img/theorem/theorem-demo2.jpg">
           </div>
+          <div class="theorem-card-detail__step-connect-line" />
         </div>
       </div>
     </div>
@@ -195,6 +196,15 @@ export default {
     &--active {
       display: block;
     }
+  }
+
+  &__step-connect-line {
+    width: 100px;
+    height: 2px;
+    background: #c7c7c7;
+    position: absolute;
+    top: 30px;
+    left: -100px;
   }
 }
 </style>

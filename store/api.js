@@ -2,6 +2,7 @@ const state = () => ({
   subjectList: [],
   chapterList: [],
   sectionList: [],
+  randomFormulaList: [],
   subjectNow: {},
   sectionNow: {},
   isLoading: false
@@ -38,6 +39,13 @@ const actions = {
 
     commit('setSection', section)
     commit('changeLoadingStatus', false)
+  },
+  async getFormulaList ({ commit }) {
+    commit('changeLoadingStatus', true)
+    const result = await this.$axios.$get(`${process.env.BASE_API_URL}function/?status=true&ordering=-order`)
+
+    commit('setRandomFormulaList', result)
+    commit('changeLoadingStatus', false)
   }
 }
 
@@ -55,6 +63,9 @@ const mutations = {
   },
   setSection (state, section) {
     state.sectionNow = section
+  },
+  setRandomFormulaList (state, data) {
+    state.randomFormulaList = data
   }
 }
 

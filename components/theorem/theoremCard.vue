@@ -1,5 +1,8 @@
 <template>
-  <div class="theorem-card">
+  <div
+    class="theorem-card"
+    :style="`left: ${cardInfo.sort * 300 + 60}px; top: ${randomTop * 15 + cardInfo.sort + 15}vh`"
+  >
     <div class="theorem-card__title-group d-flex justify-center align-center">
       <img
         src="~/assets/img/icon/pix.svg"
@@ -42,15 +45,30 @@
 
 <script>
 export default {
+  props: {
+    cardInfo: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  computed: {
+    randomTop () {
+      if (!this.cardInfo.sort) {
+        return 0
+      }
 
+      const randomNum = Math.floor(Math.random() * 10)
+
+      return randomNum
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .theorem-card {
   width: 200px;
-  margin-left: auto;
-  margin-right: auto;
+  position: absolute;
 
   &__title-group {
     background: #556978;
