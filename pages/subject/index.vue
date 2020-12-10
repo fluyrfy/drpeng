@@ -4,7 +4,7 @@ export default {
     if (!route.params.category) {
       return redirect({
         name: `${route.name}-category`,
-        params: { category: '123' }
+        params: { category: '1' }
       })
     }
   }
