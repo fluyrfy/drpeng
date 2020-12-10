@@ -20,6 +20,11 @@ export default {
   computed: {
     ...mapState('api', ['formulaDetail', 'isLoading'])
   },
+  middleware ({ route, redirect }) {
+    if (!route.query.id) {
+      return redirect('/theorem')
+    }
+  },
   async mounted () {
     await this.getFormulaDetail(this.$route.query.id)
   },
