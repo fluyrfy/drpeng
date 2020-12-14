@@ -2,7 +2,7 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     class="theorem-card"
-    :style="`left: ${cardInfo.sort * 250 + 60}px; top: ${randomTop * 15 + cardInfo.sort * 3 + 15}vh`"
+    :style="`left: ${cardInfo.sort * 250 + 60}px; top: ${cardInfo.randomTop * 15 + cardInfo.sort * 3 + 15}vh`"
     @click="onCardClick"
   >
     <div class="theorem-card__title-group d-flex justify-center align-center">
@@ -58,21 +58,10 @@ export default {
       default: () => ({})
     }
   },
-  computed: {
-    randomTop () {
-      if (!this.cardInfo.sort) {
-        return 0
-      }
-
-      const randomNum = Math.floor(Math.random() * 6)
-
-      return randomNum
-    }
-  },
   mounted () {
-    this.$nextTick(() => {
+    setTimeout(() => {
       this.renderMathJax()
-    })
+    }, 500)
   },
   methods: {
     renderMathJax () {

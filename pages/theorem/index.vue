@@ -1,13 +1,17 @@
 <template>
   <div class="theorem">
     <loading :active.sync="isLoading" />
-    <base-search />
+    <base-search
+      :options="allFormulaList"
+      :no-input="true"
+      @input="onSearchInput"
+    />
     <div class="theorem-card-section">
       <div class="theorem-card-container">
         <theorem-card
-          v-for="(item, index) in randomFormulaList"
+          v-for="(item, index) in handleRandomFormulaList"
           :key="index"
-          :card-info="handleInfo(item, index)"
+          :card-info="item"
         />
       </div>
     </div>
@@ -23,20 +27,58 @@ export default {
     'base-search': baseSearch,
     'theorem-card': theoremCard
   },
+  data () {
+    return {
+      searchText: ''
+    }
+  },
   computed: {
-    ...mapState('api', ['randomFormulaList', 'isLoading'])
+    ...mapState('api', ['randomFormulaList', 'allFormulaList', 'isLoading']),
+    handleRandomFormulaList () {
+      if (!this.randomFormulaList.length) {
+        return []
+      }
+
+      const list = this.randomFormulaList.map((item, index) => {
+        const obj = Object.assign({}, item)
+
+        obj.sort = index
+        obj.randomTop = Math.floor(Math.random() * 6)
+
+        return obj
+      })
+
+      return list
+    },
+    handleRandomFormulaListMap () {
+      if (!this.handleRandomFormulaList.length) {
+        return new Map([])
+      }
+
+      return new Map(this.handleRandomFormulaList.map((item) => {
+        return [
+          item.name,
+          item.id
+        ]
+      }))
+    }
   },
   async mounted () {
     await this.getFormulaList()
   },
   methods: {
     ...mapActions('api', ['getFormulaList']),
-    handleInfo (info, index) {
-      const newInfo = Object.assign({}, info)
+    onSearchInput (value) {
+      const detailId = this.handleRandomFormulaListMap.get(value)
 
-      newInfo.sort = index
-
-      return newInfo
+      if (detailId) {
+        this.$router.push({
+          name: 'theorem-detail',
+          query: {
+            id: detailId
+          }
+        })
+      }
     }
   }
 }

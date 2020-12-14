@@ -7,6 +7,7 @@ const state = () => ({
   sectionNow: {},
   formulaDetail: {},
   formulaStep: [],
+  allFormulaList: [],
   isLoading: false
 })
 
@@ -44,9 +45,12 @@ const actions = {
   },
   async getFormulaList ({ commit }) {
     commit('changeLoadingStatus', true)
-    const result = await this.$axios.$get(`${process.env.BASE_API_URL}function/random/?limit=20`)
+    const [result, allFormula] = await Promise.all([
+      this.$axios.$get(`${process.env.BASE_API_URL}function/random/?limit=20`),
+      this.$axios.$get(`${process.env.BASE_API_URL}function/autocomplete`)
+    ])
 
-    commit('setRandomFormulaList', result)
+    commit('setRandomFormulaList', { result, allFormula })
     commit('changeLoadingStatus', false)
   },
   async getFormulaDetail ({ commit }, id) {
@@ -77,7 +81,8 @@ const mutations = {
     state.sectionNow = section
   },
   setRandomFormulaList (state, data) {
-    state.randomFormulaList = data
+    state.randomFormulaList = data.result
+    state.allFormulaList = data.allFormula
   },
   setFormulaDetail (state, data) {
     state.formulaDetail = data.result

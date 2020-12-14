@@ -1,6 +1,7 @@
 <template>
   <div class="base-search">
     <v-text-field
+      ref="searchInput"
       v-bind="$attrs"
       :value="value"
       append-icon="$close"
@@ -9,6 +10,7 @@
       class="white base-search__text-field"
       hide-details="auto"
       @input="passToParent"
+      @click.stop="onClick"
       @click:append="onClearClick"
     >
       <template slot="prepend-inner">
@@ -27,7 +29,7 @@
       <p
         v-for="(item, index) in filterOptions"
         :key="index"
-        @click="passToParent(item.name)"
+        @click="passToParent(item.name, 'click')"
       >
         {{ item.name }}
       </p>
@@ -48,6 +50,10 @@ export default {
     options: {
       type: Array,
       default: () => []
+    },
+    noInput: { // 控制 baseSearch 是否提供輸入功能，若為 true 就不會提供輸入功能，僅提供選項
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -74,17 +80,42 @@ export default {
     document.removeEventListener('click', this.hideAutoComplete)
   },
   methods: {
-    passToParent (value) {
+    passToParent (value, click) {
       this.keyword = value
       this.needToShow = true
-      this.$emit('input', value)
+
+      if (this.noInput && click) {
+        this.$emit('input', value)
+      } else if (!this.noInput) {
+        this.$emit('input', value)
+      } else if (this.noInput && !click && !value) {
+        this.$emit('input', value)
+      }
     },
     onClearClick () {
       this.needToShow = false
       this.keyword = null
       this.$emit('input', '')
+
+      if (this.noInput) {
+        this.$refs.searchInput.lazyValue = ''
+      }
     },
     hideAutoComplete () {
+      this.needToShow = false
+    },
+    onClick () {
+      if (!this.noInput) {
+        return
+      }
+
+      this.needToShow = true
+    },
+    onBlur () {
+      if (!this.noInput) {
+        return
+      }
+
       this.needToShow = false
     }
   }
