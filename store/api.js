@@ -44,7 +44,7 @@ const actions = {
   },
   async getFormulaList ({ commit }) {
     commit('changeLoadingStatus', true)
-    const result = await this.$axios.$get(`${process.env.BASE_API_URL}function/?status=true&ordering=-order`)
+    const result = await this.$axios.$get(`${process.env.BASE_API_URL}function/random/?limit=20`)
 
     commit('setRandomFormulaList', result)
     commit('changeLoadingStatus', false)
