@@ -11,17 +11,10 @@
         class="theorem-card__title-icon"
       >
       <h2 class="theorem-card__title">
-        PROOF OF LAW 04
+        {{ cardInfo.name_en }}
       </h2>
     </div>
     <div class="theorem-card__content">
-      <div class="theorem-card__subtitle-group d-flex justify-end">
-        <div class="theorem-card__subtitle">
-          <span>
-            SECTION 2.3
-          </span>
-        </div>
-      </div>
       <div class="theorem-card__formula">
         <span
           :ref="`mathJaxEl${cardInfo.sort}`"
@@ -29,20 +22,17 @@
         />
       </div>
       <div class="theorem-card__step-section">
-        <div class="theorem-card__step theorem-card__step--first">
-          STEP 01
-          <img src="~/assets/img/icon/arrow.svg">
-        </div>
-        <div class="theorem-card__step theorem-card__step--second">
-          STEP 02
-          <img src="~/assets/img/icon/arrow.svg">
-        </div>
-        <div class="theorem-card__step theorem-card__step--third">
-          STEP 03
-          <img src="~/assets/img/icon/arrow.svg">
-        </div>
-        <div class="theorem-card__step theorem-card__step--first">
-          STEP 04
+        <div
+          v-for="num in cardInfo.function_proof_count"
+          :key="num"
+          class="theorem-card__step theorem-card__step--first"
+          :class="{
+            'theorem-card__step--first': num % 3 === 1,
+            'theorem-card__step--second': num % 3 === 2,
+            'theorem-card__step--third': num % 3 === 0
+          }"
+        >
+          {{ num > 9 ? `STEP ${num}` : `STEP 0${num}` }}
           <img src="~/assets/img/icon/arrow.svg">
         </div>
       </div>
@@ -123,34 +113,7 @@ export default {
 
   &__formula {
     width: 80%;
-    margin-top: 15px;
     font-size: 12px;
-  }
-
-  &__subtitle-group {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-  }
-
-  &__subtitle {
-    color: white;
-    font-style: italic;
-    padding: 2px 10px 2.3px 18px;
-    background-image: url('~assets/img/theorem/subtitle-bg.svg');
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-position: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    span {
-      font-size: 8px;
-      line-height: 1;
-      font-weight: 500;
-    }
   }
 
   &__step-section {

@@ -4,17 +4,10 @@
     <div class="theorem-card-detail__title-group d-flex align-center">
       <img src="~/assets/img/icon/pix.svg">
       <h2 class="theorem-card-detail__title">
-        PROOF OF LAW 04
+        {{ cardInfo.name_en }}
       </h2>
     </div>
     <div class="theorem-card-detail__content">
-      <div class="theorem-card-detail__subtitle-group d-flex justify-end">
-        <div class="theorem-card-detail__subtitle">
-          <span>
-            SECTION 2.3
-          </span>
-        </div>
-      </div>
       <div class="theorem-card-detail__formula">
         <span
           v-html="cardInfo.mathml"
@@ -141,33 +134,6 @@ export default {
 
   &__formula {
     width: 80%;
-    margin-top: 15px;
-  }
-
-  &__subtitle-group {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-  }
-
-  &__subtitle {
-    color: white;
-    font-style: italic;
-    padding: 3.3px 17px 6.5px 40px;
-    background-image: url('~assets/img/theorem/subtitle-bg.svg');
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-    background-position: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    span {
-      font-size: 16px;
-      line-height: 1.19;
-      font-weight: 500;
-    }
   }
 
   &__step-section {
