@@ -28,7 +28,7 @@
       <!-- eslint-disable vue/no-v-html -->
       <div
         class="chapter-section__section-content--content"
-        v-html="sectionNow.content"
+        v-html="covertDelta"
       />
     </section>
     <div
@@ -105,7 +105,38 @@ export default {
     }
   },
   computed: {
-    ...mapState('api', ['sectionNow', 'isLoading'])
+    ...mapState('api', ['sectionNow', 'isLoading']),
+    covertDelta () {
+      if (!this.sectionNow.content) {
+        return ''
+      }
+
+      const ops = JSON.parse(this.sectionNow.content).ops
+
+      const QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter
+      const converter = new QuillDeltaToHtmlConverter(ops)
+
+      converter.renderCustomWith((op) => {
+        if (op.insert.value) {
+          const val = op.insert.value
+          return `<span class="ql-mathjax" contenteditable="false">${this.tex2svg(val)}</span>`
+        } else {
+          return 'Unmanaged custom blot!'
+        }
+      })
+
+      const html = converter.convert()
+
+      /* eslint-disable-next-line */
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+
+      /* eslint-disable-next-line */
+      MathJax.Hub.Config({
+        'HTML-CSS': { linebreaks: { automatic: true } }
+      })
+
+      return html
+    }
   },
   async mounted () {
     this.backParams = this.$route.params.category
@@ -113,7 +144,18 @@ export default {
     await this.getSection(id)
   },
   methods: {
-    ...mapActions('api', ['getSection'])
+    ...mapActions('api', ['getSection']),
+    tex2svg (mathml) {
+      const MathJaxNode = document.createElement('DIV')
+      MathJaxNode.style.visibility = 'hidden'
+      MathJaxNode.innerHTML = mathml
+      document.body.appendChild(MathJaxNode)
+      /* eslint-disable-next-line */
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+      const svg = MathJaxNode.innerHTML
+      document.body.removeChild(MathJaxNode)
+      return svg
+    }
   }
 }
 </script>
