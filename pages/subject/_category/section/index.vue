@@ -48,11 +48,6 @@
         <img src="~/assets/img/icon/youku-icon.png">
       </div>
     </div>
-    <img
-      src="~/assets/img/icon/note-icon.svg"
-      class="chapter-section__note"
-      @click="isShowPopup = true"
-    >
     <div
       class="chapter-section__note-popup"
       :class="{'chapter-section__note-popup--active': isShowPopup}"
@@ -63,7 +58,7 @@
         </p>
         <a
           class="chapter-section__popup-block--button chapter-section__popup-block--button-more"
-          href="/theorem"
+          :href="`/theorem-detail?id=${activeId}`"
           target="_blank"
         >
           <img src="~/assets/img/icon/readmore-icon.svg">
@@ -101,7 +96,8 @@ export default {
     return {
       backParams: null,
       isVideoActive: false,
-      isShowPopup: false
+      isShowPopup: false,
+      activeId: null
     }
   },
   computed: {
@@ -142,6 +138,10 @@ export default {
     this.backParams = this.$route.params.category
     const id = this.$route.query.sectionId
     await this.getSection(id)
+
+    setTimeout(() => {
+      this.htmlAddHint()
+    }, 2000)
   },
   methods: {
     ...mapActions('api', ['getSection']),
@@ -155,6 +155,27 @@ export default {
       const svg = MathJaxNode.innerHTML
       document.body.removeChild(MathJaxNode)
       return svg
+    },
+    htmlAddHint () {
+      const vm = this
+      const container = document.querySelector('.chapter-section__section-content--content')
+      const spanList = container.querySelectorAll('.mjx-math')
+
+      spanList.forEach((item) => {
+        const id = item.getAttribute('data-function')
+        const sourceHtml = item.innerHTML
+        const handleHtml = sourceHtml + '<img src="/note-icon.svg" class="chapter-section__note" style="top: 0; right: -50px; position: absolute">'
+
+        item.style.position = 'relative'
+        item.innerHTML = handleHtml
+
+        const hintIcon = item.querySelector('.chapter-section__note')
+
+        hintIcon.addEventListener('click', function () {
+          vm.activeId = id
+          vm.isShowPopup = true
+        })
+      })
     }
   }
 }
