@@ -15,7 +15,7 @@
       </div>
       <div class="theorem-card-detail__step-section">
         <div
-          v-for="(item, index) in stepList"
+          v-for="(item, index) in covertStepDelta"
           :key="index"
           class="theorem-card-detail__step"
           :class="{
@@ -41,7 +41,7 @@
           >
             <div
               class="theorem-card-detail__step-wrap"
-              v-html="item.proof"
+              v-html="item.htmlContent"
             />
           </div>
           <div class="theorem-card-detail__step-connect-line" />
@@ -66,6 +66,47 @@ export default {
   data () {
     return {
       stepActiveList: []
+    }
+  },
+  computed: {
+    covertStepDelta () {
+      if (!this.stepList.length) {
+        return []
+      }
+
+      const covertList = this.stepList.map((item) => {
+        const obj = Object.assign({}, item)
+
+        const ops = JSON.parse(obj.delta).ops
+
+        const QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter
+        const converter = new QuillDeltaToHtmlConverter(ops)
+
+        converter.renderCustomWith((op) => {
+          if (op.insert.value) {
+            const val = op.insert.value
+            return `<span class="ql-mathjax" contenteditable="false">${this.tex2svg(val)}</span>`
+          } else {
+            return 'Unmanaged custom blot!'
+          }
+        })
+
+        const html = converter.convert()
+
+        /* eslint-disable-next-line */
+        MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+
+        /* eslint-disable-next-line */
+        MathJax.Hub.Config({
+          'HTML-CSS': { linebreaks: { automatic: true } }
+        })
+
+        obj.htmlContent = html
+
+        return obj
+      })
+
+      return covertList
     }
   },
   watch: {
@@ -98,6 +139,17 @@ export default {
       })
       /* eslint-disable-next-line */
       MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+    },
+    tex2svg (mathml) {
+      const MathJaxNode = document.createElement('DIV')
+      MathJaxNode.style.visibility = 'hidden'
+      MathJaxNode.innerHTML = mathml
+      document.body.appendChild(MathJaxNode)
+      /* eslint-disable-next-line */
+      MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+      const svg = MathJaxNode.innerHTML
+      document.body.removeChild(MathJaxNode)
+      return svg
     }
   }
 }
@@ -199,9 +251,11 @@ export default {
   &__step-wrap {
     margin-top: 10px;
 
-    &::v-deep .mjx-chtml {
-      white-space: normal;
-      min-width: auto !important;
+    &::v-deep {
+      font-weight: normal;
+      font-size: 18px;
+      line-height: normal;
+      color: black;
     }
   }
 
