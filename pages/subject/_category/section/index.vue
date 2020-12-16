@@ -140,9 +140,10 @@ export default {
     const id = this.$route.query.sectionId
     await this.getSection(id)
 
-    setTimeout(() => {
+    /* eslint-disable-next-line */
+    MathJax.Hub.Queue(() => {
       this.htmlAddHint()
-    }, 2000)
+    })
   },
   methods: {
     ...mapActions('api', ['getSection']),
