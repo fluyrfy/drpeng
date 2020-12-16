@@ -32,6 +32,7 @@
       />
     </section>
     <div
+      v-if="sectionNow.url_youtube || sectionNow.url_youku"
       class="chapter-section__video-tag"
       :class="{'chapter-section__video-tag__active': isVideoActive}"
       @click="isVideoActive = !isVideoActive"
@@ -43,9 +44,24 @@
         >
         <span>VIDEO</span>
       </div>
-      <div class="chapter-section__video-tag--content">
-        <img src="~/assets/img/icon/youtube-icon.png">
-        <img src="~/assets/img/icon/youku-icon.png">
+      <div
+        class="chapter-section__video-tag--content"
+        :class="{'chapter-section__video-tag--content--all': sectionNow.url_youtube && sectionNow.url_youku}"
+      >
+        <a
+          v-if="sectionNow.url_youtube"
+          :href="sectionNow.url_youtube"
+          target="_blank"
+        >
+          <img src="~/assets/img/icon/youtube-icon.png">
+        </a>
+        <a
+          v-if="sectionNow.url_youku"
+          :href="sectionNow.url_youku"
+          target="_blank"
+        >
+          <img src="~/assets/img/icon/youku-icon.png">
+        </a>
       </div>
     </div>
     <div
@@ -272,21 +288,23 @@ export default {
       justify-content: center;
       position: relative;
 
-      &::after {
-        content: '';
-        width: 80%;
-        height: 1px;
-        background: #8e8e8e;
-        position: absolute;
-        top: 42%;
-        left: 5px;
-      }
-
       img {
         width: 100%;
 
         &:last-child {
           margin-top: 8px;
+        }
+      }
+
+      &--all {
+        &::after {
+          content: '';
+          width: 80%;
+          height: 1px;
+          background: #8e8e8e;
+          position: absolute;
+          top: 42%;
+          left: 5px;
         }
       }
     }
