@@ -54,7 +54,7 @@
     >
       <div class="chapter-section__popup-block">
         <p class="chapter-section__popup-block--hint">
-          該處使用_______定理，您可以查看定理證明過程或選擇觀看定理地圖。
+          該處使用 {{ activeName }} 定理，您可以查看定理證明過程或選擇觀看定理地圖。
         </p>
         <a
           class="chapter-section__popup-block--button chapter-section__popup-block--button-more"
@@ -97,7 +97,8 @@ export default {
       backParams: null,
       isVideoActive: false,
       isShowPopup: false,
-      activeId: null
+      activeId: null,
+      activeName: 'test'
     }
   },
   computed: {
@@ -163,6 +164,7 @@ export default {
 
       spanList.forEach((item) => {
         const id = item.getAttribute('data-function')
+        const name = item.getAttribute('data-name')
         const sourceHtml = item.innerHTML
         const handleHtml = sourceHtml + '<img src="/note-icon.svg" class="chapter-section__note" style="top: 0; right: -50px; position: absolute">'
 
@@ -173,6 +175,7 @@ export default {
 
         hintIcon.addEventListener('click', function () {
           vm.activeId = id
+          vm.activeName = name
           vm.isShowPopup = true
         })
       })
