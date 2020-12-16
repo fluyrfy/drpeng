@@ -245,6 +245,10 @@ export default {
       font-style: italic;
       line-height: 1.63;
       color: #747474;
+
+      &::v-deep .ql-mathjax {
+        display: block;
+      }
     }
   }
 
