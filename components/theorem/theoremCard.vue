@@ -11,7 +11,7 @@
         class="theorem-card__title-icon"
       >
       <h2 class="theorem-card__title">
-        {{ cardInfo.name_en }}
+        {{ cardInfo.name }}
       </h2>
     </div>
     <div class="theorem-card__content">

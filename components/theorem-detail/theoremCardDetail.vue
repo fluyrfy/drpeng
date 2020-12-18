@@ -4,7 +4,7 @@
     <div class="theorem-card-detail__title-group d-flex align-center">
       <img src="~/assets/img/icon/pix.svg">
       <h2 class="theorem-card-detail__title">
-        {{ cardInfo.name_en }}
+        {{ cardInfo.name }}
       </h2>
     </div>
     <div class="theorem-card-detail__content">
