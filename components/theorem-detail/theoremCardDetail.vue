@@ -44,7 +44,11 @@
               v-html="item.htmlContent"
             />
           </div>
-          <div class="theorem-card-detail__step-connect-line" />
+          <div
+            v-if="item.import_function"
+            class="theorem-card-detail__step-connect-line"
+            @click="onConnectClick(item.import_function)"
+          />
         </div>
       </div>
     </div>
@@ -116,6 +120,11 @@ export default {
           this.renderMathJax()
         })
       }
+    },
+    $route (to, from) {
+      if (to.query.id !== parseInt(from.query.id)) {
+        location.reload()
+      }
     }
   },
   mounted () {
@@ -150,6 +159,14 @@ export default {
       const svg = MathJaxNode.innerHTML
       document.body.removeChild(MathJaxNode)
       return svg
+    },
+    onConnectClick (id) {
+      this.$router.push({
+        name: 'theorem-detail',
+        query: {
+          id
+        }
+      })
     }
   }
 }
