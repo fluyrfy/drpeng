@@ -14,7 +14,10 @@
       @click:append="onClearClick"
     >
       <template slot="prepend-inner">
-        <img src="~/assets/img/icon/search-map-icon.svg">
+        <img
+          src="~/assets/img/icon/search-map-icon.svg"
+          @click="onMapClick"
+        >
         <v-divider
           class="mx-2"
           vertical
@@ -117,6 +120,9 @@ export default {
       }
 
       this.needToShow = false
+    },
+    onMapClick () {
+      this.$emit('mapClick')
     }
   }
 }

@@ -5,6 +5,7 @@
       :options="allFormulaList"
       :no-input="true"
       @input="onSearchInput"
+      @mapClick="onMapClick"
     />
     <div class="theorem-card-section">
       <div class="theorem-card-container">
@@ -79,6 +80,9 @@ export default {
           }
         })
       }
+    },
+    onMapClick () {
+      this.$router.push('/')
     }
   }
 }

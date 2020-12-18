@@ -4,6 +4,7 @@
     <base-search
       v-model="searchText"
       :options="subjectList"
+      @mapClick="onMapClick"
     />
     <div class="map">
       <island
@@ -60,6 +61,11 @@ export default {
       const targetPosition = target.slice(0, pxIndex)
 
       map.scrollLeft += targetPosition
+    },
+    onMapClick () {
+      this.$router.push({
+        name: 'theorem'
+      })
     }
   }
 }
