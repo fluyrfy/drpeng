@@ -89,9 +89,11 @@ export default {
 
       if (this.noInput && click) {
         this.$emit('input', value)
-      } else if (!this.noInput) {
-        this.$emit('input', value)
+      } else if (!this.noInput && click) {
+        this.$emit('optionClick', value)
       } else if (this.noInput && !click && !value) {
+        this.$emit('input', value)
+      } else if (!this.noInput && !click) {
         this.$emit('input', value)
       }
     },

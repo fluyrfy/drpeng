@@ -5,6 +5,7 @@
       v-model="searchText"
       :options="subjectList"
       @mapClick="onMapClick"
+      @optionClick="onOptionClick"
     />
     <div class="map">
       <island
@@ -65,6 +66,16 @@ export default {
     onMapClick () {
       this.$router.push({
         name: 'theorem'
+      })
+    },
+    onOptionClick (value) {
+      const target = this.subjectList.find(item => item.name === value)
+      const id = target.id
+      this.$router.push({
+        name: 'subject-category',
+        params: {
+          category: id
+        }
       })
     }
   }
