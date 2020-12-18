@@ -248,6 +248,7 @@ export default {
 
       &::v-deep .ql-mathjax {
         display: block;
+        margin: 16px 0;
       }
     }
   }

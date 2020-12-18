@@ -274,6 +274,11 @@ export default {
       line-height: normal;
       color: black;
     }
+
+    &::v-deep .ql-mathjax {
+      display: block;
+      margin: 16px 0;
+    }
   }
 
   &__step-connect-line {
