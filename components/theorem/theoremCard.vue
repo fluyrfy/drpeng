@@ -2,7 +2,10 @@
   <!-- eslint-disable vue/no-v-html -->
   <div
     class="theorem-card"
-    :style="`left: ${cardInfo.sort * 250 + 60}px; top: ${cardInfo.randomTop * 15 + cardInfo.sort * 3 + 15}vh`"
+    :style="
+      `left: ${cardInfo.sort * 220 + 40}px;
+      top: ${(cardInfo.randomTop + 1) * 15}vh`
+    "
     @click="onCardClick"
   >
     <div class="theorem-card__title-group d-flex justify-center align-center">

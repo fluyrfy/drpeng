@@ -40,11 +40,21 @@ export default {
         return []
       }
 
+      const randomLength = this.randomFormulaList.length
+      const randomList = []
+
+      for (let i = 0; i < randomLength; i++) {
+        randomList.push(i)
+      }
+
       const list = this.randomFormulaList.map((item, index) => {
         const obj = Object.assign({}, item)
+        const num = Math.floor(Math.random() * randomList.length)
 
         obj.sort = index
-        obj.randomTop = Math.floor(Math.random() * 6)
+        obj.randomTop = randomList[num]
+
+        randomList.splice(num, 1)
 
         return obj
       })
