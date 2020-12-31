@@ -6,7 +6,7 @@
     >
       <nuxt-link
         :to="{
-          name: 'index',
+          name: 'subject-map',
           query: {
             subject: subjectId
           }

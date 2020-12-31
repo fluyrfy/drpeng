@@ -82,7 +82,7 @@ export default {
       }
     },
     onMapClick () {
-      this.$router.push('/')
+      this.$router.push('/subject-map')
     }
   }
 }
