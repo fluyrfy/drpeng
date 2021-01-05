@@ -1,47 +1,35 @@
 <template>
-  <div id="wrap">
-    <div class="cube-wrapper">
+  <div id="wrapper">
+    <div class="viewport">
       <div class="cube">
-        <div class="front">
-          <div v-if="list[0]" class="cube-content">
-            <span @click="onSubjectClick(list[0].id, 'front')">
-              {{ list[0].name }}
-            </span>
+        <div class="side">
+          <div class="cube-image">
+            1
           </div>
         </div>
-        <div class="back">
-          <div v-if="list[1]" class="cube-content">
-            <span @click="onSubjectClick(list[1].id, 'back')">
-              {{ list[1].name }}
-            </span>
+        <div class="side">
+          <div class="cube-image">
+            2
           </div>
         </div>
-        <div class="top">
-          <div v-if="list[2]" class="cube-content">
-            <span class="cube-content__reverse" @click="onSubjectClick(list[2].id, 'top')">
-              {{ list[2].name }}
-            </span>
+        <div class="side">
+          <div class="cube-image">
+            3
           </div>
         </div>
-        <div class="bottom">
-          <div v-if="list[3]" class="cube-content">
-            <span class="cube-content__reverse" @click="onSubjectClick(list[3].id, 'bottom')">
-              {{ list[3].name }}
-            </span>
+        <div class="side">
+          <div class="cube-image">
+            4
           </div>
         </div>
-        <div class="left">
-          <div v-if="list[4]" class="cube-content">
-            <span @click="onSubjectClick(list[4].id, 'left')">
-              {{ list[4].name }}
-            </span>
+        <div class="side">
+          <div class="cube-image">
+            5
           </div>
         </div>
-        <div class="right">
-          <div v-if="list[5]" class="cube-content">
-            <span @click="onSubjectClick(list[5].id, 'right')">
-              {{ list[5].name }}
-            </span>
+        <div class="side">
+          <div class="cube-image active">
+            6
           </div>
         </div>
       </div>
@@ -50,8 +38,6 @@
 </template>
 
 <script>
-import $ from 'jquery'
-import { TweenLite, TimelineMax, Linear } from 'gsap'
 export default {
   props: {
     list: {
@@ -59,121 +45,329 @@ export default {
       default: () => []
     }
   },
+  data () {
+    return {
+      events: null,
+      viewport: null
+    }
+  },
   mounted () {
-    this.renderCube()
+    this.createEvents()
+    this.setViewPortProto()
+    this.setCube()
   },
   methods: {
-    renderCube () {
-      const $cube = $('.cube')
-      const $cubeSide = $('.cube div')
-
-      const $front = $('.cube .front')
-      const $back = $('.cube .back')
-      const $top = $('.cube .top')
-      const $bottom = $('.cube .bottom')
-      const $left = $('.cube .left')
-      const $right = $('.cube .right')
-
-      const tl = new TimelineMax({ repeat: -1, timeScale: 0.5 })
-
-      tl.from($front, 1, { z: 150 }, 'part-1')
-        .from($back, 1, { z: -150 }, 'part-1')
-        .from($top, 1, { y: -100 }, 'part-1')
-        .from($bottom, 1, { y: 100 }, 'part-1')
-        .from($left, 1, { x: -100 }, 'part-1')
-        .from($right, 1, { x: 100 }, 'part-1')
-        .to($cubeSide, 1, { opacity: 1 }, 'part-1')
-        .to($cube, 2, { rotationY: '+=360', transformOrigin: '50px 50px', ease: Linear.easeNone }, 'part-1')
-        .to($cube, 2, { rotationX: '+=360', transformOrigin: '50px 50px', ease: Linear.easeNone }, 'part-1')
-        .to($cube, 2, { rotationY: '+=360', transformOrigin: '50px 50px', ease: Linear.easeNone }, 'part-2')
-        .to($cube, 2, { rotationX: '+=360', transformOrigin: '50px 50px', ease: Linear.easeNone }, 'part-2')
-        .to($cubeSide, 1, { opacity: 0.7 }, 'part-2')
-        .to($front, 1, { z: 150 }, 'part-2')
-        .to($back, 1, { z: -150 }, 'part-2')
-        .to($top, 1, { y: -100 }, 'part-2')
-        .to($bottom, 1, { y: 100 }, 'part-2')
-        .to($left, 1, { x: -100 }, 'part-2')
-        .to($right, 1, { x: 100 }, 'part-2')
-
-      $('.cube').on('mouseover', function () {
-        tl.timeScale(0.2)
-      })
-      $('.cube').on('mouseleave', function () {
-        tl.timeScale(1)
-      })
-
-      $('.cube div').click(function () {
-        if ($(this).hasClass('active')) {
-          hideSide()
-        } else {
-          tl.pause()
-          const sideClass = $(this).attr('class')
-          showSide(sideClass)
-          $(this).addClass('active')
-        }
-      })
-
-      function showSide (className) {
-        TweenLite.to($('.' + className), 1, { scale: 3 })
-
-        TweenLite.to($front, 1, { z: 50 })
-        TweenLite.to($back, 1, { z: -50 })
-        TweenLite.to($top, 1, { y: 0 })
-        TweenLite.to($bottom, 1, { y: 0 })
-        TweenLite.to($left, 1, { x: 0 })
-        TweenLite.to($right, 1, { x: 0 })
-
-        switch (className) {
-          case 'front':
-            TweenLite.to($cube, 1, { rotationX: 0, rotationY: 0 })
-            TweenLite.to($front, 1, { z: 150 })
-            break
-          case 'back':
-            TweenLite.to($cube, 1, { rotationX: 0, rotationY: 180 })
-            TweenLite.to($back, 1, { z: -150 })
-            break
-          case 'top':
-            TweenLite.to($cube, 1, { rotationX: -90, rotationY: 0 })
-            TweenLite.to($top, 1, { y: -100, z: 150 })
-            break
-          case 'bottom':
-            TweenLite.to($cube, 1, { rotationX: 90, rotationY: 0 })
-            TweenLite.to($bottom, 1, { y: 100, z: 150 })
-            break
-          case 'left':
-            TweenLite.to($cube, 1, { rotationX: 0, rotationY: 90 })
-            TweenLite.to($left, 1, { x: -100, z: -150, y: 0 })
-            break
-          case 'right':
-            TweenLite.to($cube, 1, { rotationX: 0, rotationY: -90 })
-            TweenLite.to($right, 1, { x: 100, z: -150, y: -100 })
-            break
-        }
+    createEvents () {
+      function Events () {
+        this.events = {}
       }
 
-      function hideSide () {
-        $('.active').removeClass('active')
-        TweenLite.to($cube, 1, { rotationY: 0, rotationX: 0, ease: Linear.easeNone, onComplete () { tl.restart() } })
-        TweenLite.to($front, 1, { z: 150 })
-        TweenLite.to($back, 1, { z: -150 })
-        TweenLite.to($top, 1, { y: -100, z: 50 })
-        TweenLite.to($bottom, 1, { y: 100, z: 50 })
-        TweenLite.to($left, 1, { x: -100, z: -50, y: 0 })
-        TweenLite.to($right, 1, { x: 100, z: -50, y: 0 })
-        TweenLite.to($cubeSide, 1, { scale: 1 })
+      this.events = new Events()
+      this.events.add = function (obj) {
+        obj.events = {}
+      }
+      this.events.implement = function (fn) {
+        fn.prototype = Object.create(Events.prototype)
+      }
+
+      Events.prototype.on = function (name, fn) {
+        const events = this.events[name]
+        if (events !== undefined && !events.includes(fn)) {
+          events.push(fn)
+          this.emit('event:on', fn)
+        } else {
+          this.events[name] = [fn]
+          this.emit('event:on', fn)
+        }
+
+        return this
+      }
+
+      Events.prototype.once = function (name, fn) {
+        const events = this.events[name]
+        fn.once = true
+        if (events && !events.includes(fn)) {
+          events.push(fn)
+          this.emit('event:once', fn)
+        } else {
+          this.events[name] = [fn]
+          this.emit('event:once', fn)
+        }
+
+        return this
+      }
+
+      Events.prototype.emit = function (name, args) {
+        const events = this.events[name]
+        if (events) {
+          let i = events.length
+          while (i--) {
+            if (events[i]) {
+              events[i].call(this, args)
+              if (events[i].once) {
+                delete events[i]
+              }
+            }
+          }
+        }
+        return this
+      }
+
+      Events.prototype.unbind = function (name, fn) {
+        if (name) {
+          const events = this.events[name]
+          if (events) {
+            if (fn) {
+              const i = events.indexOf(fn)
+              if (i !== -1) {
+                delete events[i]
+              }
+            } else {
+              delete this.events[name]
+            }
+          }
+        } else {
+          delete this.events
+          this.events = {}
+        }
+        return this
       }
     },
-    onSubjectClick (id, target) {
-      const el = document.querySelector('.' + target)
-      const elClass = el.className
-      if (!elClass.includes('active')) {
-        return
+    bindEvent (element, type, handler) {
+      element.addEventListener ? element.addEventListener(type, handler, { passive: false }) : element.attachEvent('on' + type, handler)
+    },
+    setViewPortProto () {
+      function Viewport (data, vm) {
+        vm.events.add(this)
+
+        const self = this
+
+        this.element = data.element
+        this.fps = data.fps
+        this.sensivity = data.sensivity
+        this.sensivityFade = data.sensivityFade
+        this.touchSensivity = data.touchSensivity
+        this.speed = data.speed
+
+        this.lastX = 0
+        this.lastY = 0
+        this.mouseX = 0
+        this.mouseY = 0
+        this.distanceX = 0
+        this.distanceY = 0
+        this.positionX = 1122
+        this.positionY = 136
+        this.torqueX = 0
+        this.torqueY = 0
+
+        this.down = false
+        this.upsideDown = false
+
+        this.previousPositionX = 0
+        this.previousPositionY = 0
+
+        this.currentSide = 0
+        this.calculatedSide = 0
+
+        vm.bindEvent(document, 'mousedown', function () {
+          self.down = true
+        })
+
+        vm.bindEvent(document, 'mouseup', function () {
+          self.down = false
+        })
+
+        vm.bindEvent(document, 'keyup', function () {
+          self.down = false
+        })
+
+        vm.bindEvent(document, 'mousemove', function (e) {
+          self.mouseX = e.pageX
+          self.mouseY = e.pageY
+        })
+
+        vm.bindEvent(document, 'touchstart', function (e) {
+          self.down = true
+          e = e.touches ? e.touches[0] : null
+          self.mouseX = e.pageX / self.touchSensivity
+          self.mouseY = e.pageY / self.touchSensivity
+          self.lastX = self.mouseX
+          self.lastY = self.mouseY
+        })
+
+        vm.bindEvent(document, 'touchmove', function (e) {
+          if (e.preventDefault) {
+            e.preventDefault()
+          }
+
+          if (e.touches.length === 1) {
+            e = e.touches ? e.touches[0] : null
+
+            self.mouseX = e.pageX / self.touchSensivity
+            self.mouseY = e.pageY / self.touchSensivity
+          }
+        })
+
+        vm.bindEvent(document, 'touchend', function (e) {
+          self.down = false
+        })
+
+        setInterval(this.animate.bind(this), this.fps)
       }
-      this.$router.push({
-        name: 'subject-map',
-        query: {
-          subject: id
+      this.events.implement(Viewport)
+
+      Viewport.prototype.animate = function () {
+        this.distanceX = (this.mouseX - this.lastX)
+        this.distanceY = (this.mouseY - this.lastY)
+
+        this.lastX = this.mouseX
+        this.lastY = this.mouseY
+
+        if (this.down) {
+          this.torqueX = this.torqueX * this.sensivityFade + (this.distanceX * this.speed - this.torqueX) * this.sensivity
+          this.torqueY = this.torqueY * this.sensivityFade + (this.distanceY * this.speed - this.torqueY) * this.sensivity
         }
+
+        if (Math.abs(this.torqueX) > 1.0 || Math.abs(this.torqueY) > 1.0) {
+          if (!this.down) {
+            this.torqueX *= this.sensivityFade
+            this.torqueY *= this.sensivityFade
+          }
+
+          this.positionY -= this.torqueY
+
+          if (this.positionY > 360) {
+            this.positionY -= 360
+          } else if (this.positionY < 0) {
+            this.positionY += 360
+          }
+
+          if (this.positionY > 90 && this.positionY < 270) {
+            this.positionX -= this.torqueX
+
+            if (!this.upsideDown) {
+              this.upsideDown = true
+              this.emit('upsideDown', { upsideDown: this.upsideDown })
+            }
+          } else {
+            this.positionX += this.torqueX
+
+            if (this.upsideDown) {
+              this.upsideDown = false
+              this.emit('upsideDown', { upsideDown: this.upsideDown })
+            }
+          }
+
+          if (this.positionX > 360) {
+            this.positionX -= 360
+          } else if (this.positionX < 0) {
+            this.positionX += 360
+          }
+
+          if (!(this.positionY >= 46 && this.positionY <= 130) && !(this.positionY >= 220 && this.positionY <= 308)) {
+            if (this.upsideDown) {
+              if (this.positionX >= 42 && this.positionX <= 130) {
+                this.calculatedSide = 3
+              } else if (this.positionX >= 131 && this.positionX <= 223) {
+                this.calculatedSide = 2
+              } else if (this.positionX >= 224 && this.positionX <= 314) {
+                this.calculatedSide = 5
+              } else {
+                this.calculatedSide = 4
+              }
+            } else if (!this.upsideDown) {
+              if (this.positionX >= 42 && this.positionX <= 130) {
+                this.calculatedSide = 5
+              } else if (this.positionX >= 131 && this.positionX <= 223) {
+                this.calculatedSide = 4
+              } else if (this.positionX >= 224 && this.positionX <= 314) {
+                this.calculatedSide = 3
+              } else {
+                this.calculatedSide = 2
+              }
+            }
+          } else {
+            if (this.positionY >= 46 && this.positionY <= 130) {
+              this.calculatedSide = 6
+            }
+
+            if (this.positionY >= 220 && this.positionY <= 308) {
+              this.calculatedSide = 1
+            }
+          }
+
+          if (this.calculatedSide !== this.currentSide) {
+            this.currentSide = this.calculatedSide
+            this.emit('sideChange')
+          }
+        }
+
+        this.element.style.transform = 'rotateX(' + this.positionY + 'deg) rotateY(' + this.positionX + 'deg)'
+
+        if (this.positionY !== this.previousPositionY || this.positionX !== this.previousPositionX) {
+          this.previousPositionY = this.positionY
+          this.previousPositionX = this.positionX
+
+          this.emit('rotate')
+        }
+      }
+
+      this.viewport = new Viewport({
+        element: document.getElementsByClassName('cube')[0],
+        fps: 20,
+        sensivity: 0.1,
+        sensivityFade: 0.93,
+        speed: 2,
+        touchSensivity: 1.5
+      }, this)
+    },
+    setCube () {
+      function Cube (data) {
+        const self = this
+
+        this.element = data.element
+        this.sides = this.element.getElementsByClassName('side')
+
+        this.viewport = data.viewport
+        this.viewport.on('rotate', function () {
+          self.rotateSides()
+        })
+        this.viewport.on('upsideDown', function (obj) {
+          self.upsideDown(obj)
+        })
+        this.viewport.on('sideChange', function () {
+          self.sideChange()
+        })
+      }
+
+      Cube.prototype.rotateSides = function () {
+        const viewport = this.viewport
+        if (viewport.positionY > 90 && viewport.positionY < 270) {
+          this.sides[0].getElementsByClassName('cube-image')[0].style.transform = 'rotate(' + (viewport.positionX + viewport.torqueX) + 'deg)'
+          this.sides[5].getElementsByClassName('cube-image')[0].style.transform = 'rotate(' + -(viewport.positionX + 180 + viewport.torqueX) + 'deg)'
+        } else {
+          this.sides[0].getElementsByClassName('cube-image')[0].style.transform = 'rotate(' + (viewport.positionX - viewport.torqueX) + 'deg)'
+          this.sides[5].getElementsByClassName('cube-image')[0].style.transform = 'rotate(' + -(viewport.positionX + 180 - viewport.torqueX) + 'deg)'
+        }
+      }
+      Cube.prototype.upsideDown = function (obj) {
+        const deg = (obj.upsideDown === true) ? '180deg' : '0deg'
+        let i = 5
+
+        while (i > 0 && --i) {
+          this.sides[i].getElementsByClassName('cube-image')[0].style.transform = 'rotate(' + deg + ')'
+        }
+      }
+      Cube.prototype.sideChange = function () {
+        for (let i = 0; i < this.sides.length; ++i) {
+          this.sides[i].getElementsByClassName('cube-image')[0].className = 'cube-image'
+        }
+        this.sides[this.viewport.currentSide - 1].getElementsByClassName('cube-image')[0].className = 'cube-image active'
+      }
+      /* eslint-disable-next-line */
+      new Cube({
+        viewport: this.viewport,
+        element: document.getElementsByClassName('cube')[0]
       })
     }
   }
@@ -181,93 +375,104 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#wrap {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
-  z-index: 999;
-}
+// #wrapper {
+//   padding-top: 10%;
+// }
 
-.cube-wrapper {
-  -webkit-perspective: 800px;
-  -webkit-perspective-origin: 50% 50px;
+.viewport {
   perspective: 800px;
-  perspective-origin: 50% 50px;
+  perspective-origin: 50% 200px;
+  transform: scale(0.8, 0.8);
+  -webkit-box-reflect: below 170px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0%, transparent), to(rgba(250, 250, 250, 0.1)));
+  @include lessThan($--breakpoints-xs) {
+    transform: scale(0.6, 0.6);
+  }
 }
 
 .cube {
   position: relative;
-  width: 100px;
-  -webkit-transform-style: preserve-3d;
-  -webkit-transform-origin: 50px 50px 0px;
+  margin: 0 auto;
+  height: 200px;
+  width: 200px;
   transform-style: preserve-3d;
-  transform-origin: 50px 50px 0px;
+  transform: rotateX(136deg) rotateY(1122deg);
 }
 
-.cube div {
-  outline: 1px solid #999;
+.cube > div {
+  overflow: hidden;
   position: absolute;
-  width: 100px;
-  height: 100px;
-  opacity: 0.7;
-  box-shadow: inset 0px 0px 50px #555;
-  cursor: pointer;
-  background-repeat: no-repeat;
-  background-position: center;
+  opacity: 0.9;
+  height: 200px;
+  width: 200px;
+  background-image: url("https://jordizle.com/static/img/codepen/blank.png");
+  -webkit-touch-callout: none;
+  -moz-touch-callout: none;
+  -ms-touch-callout: none;
+  -o-touch-callout: none;
+  user-select: none;
 }
 
-.cube div.back {
-  -webkit-transform: translateZ(-50px) rotateY(180deg);
-  transform: translateZ(-50px) rotateY(180deg);
-  background-color: #75375D;
-}
-.cube div.right {
-  -webkit-transform: rotateY(-270deg) translateX(50px);
-  -webkit-transform-origin: top right;
-  transform: rotateY(-270deg) translateX(50px);
-  transform-origin: top right;
-  background-color: #37754F;
-}
-.cube div.left {
-  -webkit-transform: rotateY(270deg) translateX(-50px);
-  -webkit-transform-origin: center left;
-  transform: rotateY(270deg) translateX(-50px);
-  transform-origin: center left;
-  background-color: #d375175d;
-}
-.cube div.top {
-  -webkit-transform: rotateX(-90deg) translateY(-50px);
-  -webkit-transform-origin: top center;
-  transform: rotateX(-90deg) translateY(-50px);
-  transform-origin: top center;
-  background-color: #B0A248;
-}
-.cube div.bottom {
-  -webkit-transform: rotateX(90deg) translateY(50px);
-  -webkit-transform-origin: bottom center;
-
-  transform: rotateX(90deg) translateY(50px);
-  transform-origin: bottom center;
-  background-color: #76C6EE;
-}
-.cube div.front {
-  -webkit-transform: translateZ(50px);
-  transform: translateZ(50px);
-  background-color: #eee;
+.cube > div > div.cube-image {
+  width: 200px;
+  height: 200px;
+  transform: rotate(180deg);
+  line-height: 200px;
+  font-size: 80px;
+  text-align: center;
+  color: #1b9bd8;
+  transition: color 600ms;
 }
 
-.cube-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+.cube > div > div.cube-image.active {
+  color: red;
+}
 
-  &__reverse {
-    transform: scale(1, -1)
+.cube > div {
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    cursor: pointer;
   }
 }
 
+.cube > div {
+  &:first-child {
+    transform: rotateX(90deg) translateZ(100px);
+    outline: 1px solid transparent;
+  }
+
+  &:nth-child(2) {
+    transform: translateZ(100px);
+    outline: 1px solid transparent;
+  }
+
+  &:nth-child(3) {
+    transform: rotateY(90deg) translateZ(100px);
+    outline: 1px solid transparent;
+  }
+
+  &:nth-child(4) {
+    transform: rotateY(180deg) translateZ(100px);
+    outline: 1px solid transparent;
+  }
+
+  &:nth-child(5) {
+    transform: rotateY(-90deg) translateZ(100px);
+    outline: 1px solid transparent;
+  }
+
+  &:nth-child(6) {
+    transform: rotateX(-90deg) rotate(180deg) translateZ(100px);
+    outline: 1px solid transparent;
+  }
+}
+
+object {
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
+}
 </style>
