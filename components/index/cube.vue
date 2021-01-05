@@ -2,34 +2,16 @@
   <div id="wrapper">
     <div class="viewport">
       <div class="cube">
-        <div class="side">
-          <div class="cube-image">
-            1
-          </div>
-        </div>
-        <div class="side">
-          <div class="cube-image">
-            2
-          </div>
-        </div>
-        <div class="side">
-          <div class="cube-image">
-            3
-          </div>
-        </div>
-        <div class="side">
-          <div class="cube-image">
-            4
-          </div>
-        </div>
-        <div class="side">
-          <div class="cube-image">
-            5
-          </div>
-        </div>
-        <div class="side">
-          <div class="cube-image active">
-            6
+        <div
+          v-for="item in list"
+          :key="item.id"
+          class="side"
+        >
+          <div
+            :id="item.id"
+            class="cube-image"
+          >
+            {{ item.title }}
           </div>
         </div>
       </div>
@@ -42,19 +24,62 @@ export default {
   props: {
     list: {
       type: Array,
-      default: () => []
+      default: () => [
+        {
+          title: '化學',
+          id: 1
+        },
+        {
+          title: '國文',
+          id: 2
+        },
+        {
+          title: '數學',
+          id: 3
+        },
+        {
+          title: '英文',
+          id: 4
+        },
+        {
+          title: '物理',
+          id: 5
+        },
+        {
+          title: '微積分',
+          id: 6
+        }
+      ]
     }
   },
   data () {
     return {
       events: null,
-      viewport: null
+      viewport: null,
+      activeItem: {}
+    }
+  },
+  computed: {
+    listMap () {
+      if (!this.list.length) {
+        return new Map([])
+      }
+
+      return new Map(this.list.map((item) => {
+        return [
+          item.id,
+          item
+        ]
+      }))
     }
   },
   mounted () {
     this.createEvents()
     this.setViewPortProto()
-    this.setCube()
+    this.setCube(this)
+    this.$nextTick(() => {
+      this.getActiveItem()
+    })
   },
   methods: {
     createEvents () {
@@ -321,7 +346,7 @@ export default {
         touchSensivity: 1.5
       }, this)
     },
-    setCube () {
+    setCube (vm) {
       function Cube (data) {
         const self = this
 
@@ -363,22 +388,27 @@ export default {
           this.sides[i].getElementsByClassName('cube-image')[0].className = 'cube-image'
         }
         this.sides[this.viewport.currentSide - 1].getElementsByClassName('cube-image')[0].className = 'cube-image active'
+        vm.getActiveItem()
       }
       /* eslint-disable-next-line */
       new Cube({
         viewport: this.viewport,
         element: document.getElementsByClassName('cube')[0]
       })
+    },
+    getActiveItem () {
+      if (!document) {
+        return
+      }
+      const active = document.querySelector('.active')
+
+      this.activeItem = active ? this.listMap.get(parseInt(active.id)) : {}
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-// #wrapper {
-//   padding-top: 10%;
-// }
-
 .viewport {
   perspective: 800px;
   perspective-origin: 50% 200px;
@@ -417,8 +447,9 @@ export default {
   height: 200px;
   transform: rotate(180deg);
   line-height: 200px;
-  font-size: 80px;
+  font-size: 60px;
   text-align: center;
+  font-weight: bold;
   color: #1b9bd8;
   transition: color 600ms;
 }

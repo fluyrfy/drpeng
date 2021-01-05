@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <cube :list="cubeData" />
+    <cube />
   </div>
 </template>
 
