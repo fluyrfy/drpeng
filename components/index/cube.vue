@@ -6,6 +6,11 @@
           v-for="item in list"
           :key="item.id"
           class="side"
+          :class="{
+            'side-bg-1': item.id === 1 || item.id === 6,
+            'side-bg-2': item.id === 2 || item.id === 4,
+            'side-bg-3': item.id === 3 || item.id === 5
+          }"
         >
           <div
             :id="item.id"
@@ -433,12 +438,23 @@ export default {
   opacity: 0.9;
   height: 200px;
   width: 200px;
-  background-image: url("https://jordizle.com/static/img/codepen/blank.png");
   -webkit-touch-callout: none;
   -moz-touch-callout: none;
   -ms-touch-callout: none;
   -o-touch-callout: none;
   user-select: none;
+}
+
+.side-bg-1 {
+  background-color: #7a918f;
+}
+
+.side-bg-2 {
+  background-color: #9e8d82;
+}
+
+.side-bg-3 {
+  background-color: #b2b09a;
 }
 
 .cube > div > div.cube-image {
@@ -449,7 +465,7 @@ export default {
   font-size: 60px;
   text-align: center;
   font-weight: bold;
-  color: #1b9bd8;
+  color: white;
   transition: color 600ms;
 }
 

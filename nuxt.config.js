@@ -108,16 +108,22 @@ export default {
     interval: 1000,
     async routes () { // dynamic route to generate subject page
       const subject = await axios.get(`${process.env.BASE_API_URL_GENERATE}subject/?status=true&ordering=-order`)
+      const subjectMap = ['/subject-map/1', '/subject-map/2', '/subject-map/3', '/subject-map/4', '/subject-map/5', '/subject-map/6']
 
-      const subjectRoute = subject.data.map((item) => {
-        return `/subject/${item.id}`
+      const subjectRoute = []
+      const sectionList = []
+
+      subject.data.forEach((item) => {
+        subjectMap.forEach((map) => {
+          const url = `${map}/subject/${item.id}`
+          const sectionUrl = `${map}/subject/${item.id}/section`
+
+          subjectRoute.push(url)
+          sectionList.push(sectionUrl)
+        })
       })
 
-      const sectionList = subject.data.map((item) => {
-        return `/subject/${item.id}/section`
-      })
-
-      const routeList = [...subjectRoute, ...sectionList]
+      const routeList = [...subjectRoute, ...sectionList, ...subjectMap]
 
       return routeList
     }

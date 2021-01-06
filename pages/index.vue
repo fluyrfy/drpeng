@@ -40,7 +40,10 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: #333;
+  background-image: url('~assets/img/index/cube-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
