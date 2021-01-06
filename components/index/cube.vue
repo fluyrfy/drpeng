@@ -10,6 +10,7 @@
           <div
             :id="item.id"
             class="cube-image"
+            @click="onSubjectClick(item.id)"
           >
             {{ item.title }}
           </div>
@@ -21,50 +22,47 @@
 
 <script>
 export default {
-  props: {
-    list: {
-      type: Array,
-      default: () => [
+  data () {
+    return {
+      events: null,
+      viewport: null,
+      activeItem: {},
+      list: [
         {
           title: '化學',
+          en: 'chemistry',
           id: 1
         },
         {
           title: '國文',
+          en: 'chinese',
           id: 2
         },
         {
           title: '數學',
+          en: 'math',
           id: 3
         },
         {
           title: '英文',
+          en: 'english',
           id: 4
         },
         {
           title: '物理',
+          en: 'physical',
           id: 5
         },
         {
           title: '微積分',
+          en: 'calculus',
           id: 6
         }
       ]
     }
   },
-  data () {
-    return {
-      events: null,
-      viewport: null,
-      activeItem: {}
-    }
-  },
   computed: {
     listMap () {
-      if (!this.list.length) {
-        return new Map([])
-      }
-
       return new Map(this.list.map((item) => {
         return [
           item.id,
@@ -403,6 +401,13 @@ export default {
       const active = document.querySelector('.active')
 
       this.activeItem = active ? this.listMap.get(parseInt(active.id)) : {}
+    },
+    onSubjectClick (id) {
+      const target = this.listMap.get(id)
+
+      this.$router.push({
+        name: `subject-${target.en}`
+      })
     }
   }
 }
@@ -413,7 +418,6 @@ export default {
   perspective: 800px;
   perspective-origin: 50% 200px;
   transform: scale(0.8, 0.8);
-  -webkit-box-reflect: below 170px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0%, transparent), to(rgba(250, 250, 250, 0.1)));
   @include lessThan($--breakpoints-xs) {
     transform: scale(0.6, 0.6);
   }
