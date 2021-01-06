@@ -30,32 +30,26 @@ export default {
       list: [
         {
           title: '化學',
-          en: 'chemistry',
           id: 1
         },
         {
           title: '國文',
-          en: 'chinese',
           id: 2
         },
         {
           title: '數學',
-          en: 'math',
           id: 3
         },
         {
           title: '英文',
-          en: 'english',
           id: 4
         },
         {
           title: '物理',
-          en: 'physical',
           id: 5
         },
         {
           title: '微積分',
-          en: 'calculus',
           id: 6
         }
       ]
@@ -403,10 +397,11 @@ export default {
       this.activeItem = active ? this.listMap.get(parseInt(active.id)) : {}
     },
     onSubjectClick (id) {
-      const target = this.listMap.get(id)
-
       this.$router.push({
-        name: `subject-${target.en}`
+        name: 'subject-map-subjectCategory',
+        params: {
+          subjectCategory: id
+        }
       })
     }
   }

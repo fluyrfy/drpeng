@@ -82,7 +82,7 @@ export default {
       }
     },
     onMapClick () {
-      this.$router.push('/subject-map')
+      this.$router.push('/subject-calculus')
     }
   }
 }

@@ -6,9 +6,12 @@
     >
       <nuxt-link
         :to="{
-          name: 'subject-map',
+          name: 'subject-map-subjectCategory',
           query: {
             subject: subjectId
+          },
+          params: {
+            subjectCategory: $route.params.subjectCategory
           }
         }"
         class="subject__back-button"
@@ -77,8 +80,16 @@ export default {
     }
   },
   async mounted () {
-    if (this.subjectId) {
+    if (this.subjectId && this.$route.params.subjectCategory) {
       await this.getChapterList(this.subjectId)
+    } else {
+      this.$router.push({
+        name: `${this.$route.name}`,
+        params: {
+          category: '1',
+          subjectCategory: this.$route.params.subjectCategory ? this.$route.params.subjectCategory : '1'
+        }
+      })
     }
   },
   methods: {

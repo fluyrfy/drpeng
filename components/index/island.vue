@@ -116,9 +116,10 @@ export default {
 
       setTimeout(() => {
         this.$router.push({
-          name: 'subject-category',
+          name: 'subject-map-subjectCategory-subject-category',
           params: {
-            category: id
+            category: id,
+            subjectCategory: this.$route.params.subjectCategory
           }
         })
       }, 1800)
