@@ -82,7 +82,12 @@ export default {
       }
     },
     onMapClick () {
-      this.$router.push('/subject-calculus')
+      this.$router.push({
+        name: 'subject-map-subjectCategory',
+        params: {
+          subjectCategory: this.$route.query.subjectCategory ? this.$route.query.subjectCategory : '1'
+        }
+      })
     }
   }
 }

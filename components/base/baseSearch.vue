@@ -15,6 +15,7 @@
     >
       <template slot="prepend-inner">
         <img
+          class="base-search__map-icon"
           src="~/assets/img/icon/search-map-icon.svg"
           @click="onMapClick"
         >
@@ -156,6 +157,11 @@ export default {
         margin-bottom: 0;
       }
     }
+  }
+
+  &__map-icon {
+    width: 24px;
+    height: 24px;
   }
 }
 </style>

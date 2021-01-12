@@ -75,7 +75,10 @@ export default {
     },
     onMapClick () {
       this.$router.push({
-        name: 'theorem'
+        name: 'theorem',
+        query: {
+          subjectCategory: this.$route.params.subjectCategory
+        }
       })
     },
     onOptionClick (value) {

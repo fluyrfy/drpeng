@@ -9,7 +9,12 @@
 export default {
   methods: {
     onTheoremButtonClick () {
-      this.$router.push('/theorem')
+      this.$router.push({
+        name: 'theorem',
+        query: {
+          subjectCategory: this.$route.params.subjectCategory
+        }
+      })
     }
   }
 }
