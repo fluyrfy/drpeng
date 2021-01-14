@@ -35,7 +35,8 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '~/plugins/vue-loading-overlay'
+    '~/plugins/vue-loading-overlay',
+    { src: '~/plugins/hammer', ssr: false }
   ],
   /*
   ** Nuxt.js dev-modules
