@@ -9,7 +9,12 @@
 export default {
   methods: {
     onSubjectButtonClick () {
-      this.$router.push('/')
+      this.$router.push({
+        name: 'subject-map-subjectCategory',
+        params: {
+          subjectCategory: this.$route.query.subject ? this.$route.query.subject : '1'
+        }
+      })
     }
   }
 }

@@ -69,7 +69,8 @@ export default {
       this.$router.push({
         name: 'theorem-detail',
         query: {
-          id: this.cardInfo.id
+          id: this.cardInfo.id,
+          subject: this.$route.query.subjectCategory
         }
       })
     }
