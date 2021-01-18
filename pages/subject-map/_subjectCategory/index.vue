@@ -32,6 +32,7 @@ export default {
   },
   computed: {
     ...mapState('api', ['subjectList', 'isLoading']),
+    ...mapState('cube', ['needReload']),
     filterSubjectList () {
       if (!this.searchText) {
         return this.subjectList
@@ -43,6 +44,9 @@ export default {
     }
   },
   async mounted () {
+    if (this.needReload) {
+      this.$router.go(0)
+    }
     const subjectCategory = parseInt(this.$route.params.subjectCategory)
 
     if (subjectCategory) {

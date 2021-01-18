@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   data () {
     return {
@@ -79,6 +80,7 @@ export default {
     })
   },
   methods: {
+    ...mapMutations('cube', ['changeReload']),
     createEvents () {
       function Events () {
         this.events = {}
@@ -402,6 +404,7 @@ export default {
       this.activeItem = active ? this.listMap.get(parseInt(active.id)) : {}
     },
     onSubjectClick (id) {
+      this.changeReload(true)
       this.$router.push({
         name: 'subject-map-subjectCategory',
         params: {
