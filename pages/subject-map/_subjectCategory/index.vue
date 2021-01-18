@@ -84,10 +84,12 @@ export default {
     onOptionClick (value) {
       const target = this.subjectList.find(item => item.name === value)
       const id = target.id
+
       this.$router.push({
-        name: 'subject-category',
+        name: 'subject-map-subjectCategory-subject-category',
         params: {
-          category: id
+          category: id,
+          subjectCategory: this.$route.params.subjectCategory
         }
       })
     }
