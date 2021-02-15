@@ -49,7 +49,7 @@ export default {
     }
     const subjectCategory = parseInt(this.$route.params.subjectCategory)
 
-    if (subjectCategory) {
+    if (subjectCategory === 1) {
       await this.getSubjectList()
       this.scrollToTarget()
     } else {
