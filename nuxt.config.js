@@ -109,7 +109,10 @@ export default {
     interval: 1000,
     async routes () { // dynamic route to generate subject page
       const subject = await axios.get(`${process.env.BASE_API_URL_GENERATE}subject/?status=true&ordering=-order`)
-      const subjectMap = ['/subject-map/1', '/subject-map/2', '/subject-map/3', '/subject-map/4', '/subject-map/5', '/subject-map/6']
+
+      /* 目前大科目只有一種，避免誤會 generate 只產出該科目的頁面 */
+      // const subjectMap = ['/subject-map/1', '/subject-map/2', '/subject-map/3', '/subject-map/4', '/subject-map/5', '/subject-map/6']
+      const subjectMap = ['/subject-map/1']
 
       const subjectRoute = []
       const sectionList = []

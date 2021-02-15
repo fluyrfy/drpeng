@@ -408,7 +408,7 @@ export default {
       this.$router.push({
         name: 'subject-map-subjectCategory',
         params: {
-          subjectCategory: id
+          subjectCategory: 1
         }
       })
     }
