@@ -10,7 +10,7 @@
           <nuxt-link
             v-if="backParams"
             :to="{
-              name: 'subject-category',
+              name: 'subject-map-subjectCategory-subject-category',
               params: {
                 category: backParams
               }

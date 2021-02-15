@@ -80,7 +80,7 @@ export default {
     },
     onSectionClick (id, section) {
       this.$router.push({
-        name: 'subject-category-section',
+        name: 'subject-map-subjectCategory-subject-category-section',
         query: {
           sectionId: id,
           section

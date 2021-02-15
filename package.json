@@ -5,7 +5,7 @@
   "author": "s0939859391",
   "private": true,
   "scripts": {
-    "dev": "ENV=dev nuxt",
+    "dev": "ENV=prod nuxt",
     "build": "ENV=prod nuxt build",
     "start": "ENV=prod nuxt start",
     "generate": "ENV=prod nuxt generate",
