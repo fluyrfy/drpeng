@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="97" height="60" viewBox="0 0 97 60">
+    <g transform="translate(-50 -569.5)">
+        <path fill="none" stroke="#f99130" stroke-width="2px" d="M0 0L0 60" transform="translate(68 569.5)"/>
+        <rect width="97" height="32" fill="#f99130" rx="16" transform="translate(50 583)"/>
+        <g fill="none" stroke="#fffef4" stroke-width="2px" transform="translate(54 585)">
+            <circle cx="14" cy="14" r="14" stroke="none"/>
+            <circle cx="14" cy="14" r="13"/>
+        </g>
+        <text fill="#fffef4" font-family="NotoSansTC-Regular, Noto Sans TC" font-size="20px" letter-spacing="0.1em" transform="translate(65 607)">
+            <tspan x="0" y="0">!</tspan>
+        </text>
+        <text fill="#fffef4" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="20px" font-weight="700" transform="translate(94 606)">
+            <tspan x="0" y="0">Hint</tspan>
+        </text>
+    </g>
+</svg>

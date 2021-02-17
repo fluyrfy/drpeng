@@ -14,41 +14,76 @@
         />
       </div>
       <div class="theorem-card-detail__step-section">
-        <div
+        <section
           v-for="(item, index) in covertStepDelta"
           :key="index"
-          class="theorem-card-detail__step"
-          :class="{
-            'theorem-card-detail__step--first': (index + 1) % 3 === 1,
-            'theorem-card-detail__step--second': (index + 1) % 3 === 2,
-            'theorem-card-detail__step--third': (index + 1) % 3 === 0
-          }"
+          class="theorem-card-detail__step-group"
         >
           <div
-            class="d-flex justify-center align-center theorem-card-detail__step-title"
-            @click="onStepTitleClick(item)"
-          >
-            {{ index + 1 > 9 ? `STEP ${index + 1}` : `STEP 0${index + 1}` }}
-            <img
-              src="~/assets/img/icon/arrow.svg"
-              class="theorem-card-detail__arrow-icon"
-              :class="{'theorem-card-detail__arrow-icon--active': stepActiveList.indexOf(item) > -1}"
-            >
-          </div>
-          <div
-            class="theorem-card-detail__step-content"
-            :class="{'theorem-card-detail__step-content--active': stepActiveList.indexOf(item) > -1}"
+            class="theorem-card-detail__step"
+            :class="{
+              'theorem-card-detail__step--first': (index + 1) % 4 === 1,
+              'theorem-card-detail__step--second': (index + 1) % 4 === 2,
+              'theorem-card-detail__step--third': (index + 1) % 4 === 3,
+              'theorem-card-detail__step--fourth': (index + 1) % 4 === 0
+            }"
           >
             <div
-              class="theorem-card-detail__step-wrap"
-              v-html="item.htmlContent"
+              class="d-flex justify-center align-center theorem-card-detail__step-title"
+              @click="onStepTitleClick(item)"
+            >
+              {{ index + 1 > 9 ? `STEP ${index + 1}` : `STEP 0${index + 1}` }}
+              <img
+                src="~/assets/img/icon/arrow.svg"
+                class="theorem-card-detail__arrow-icon"
+                :class="{'theorem-card-detail__arrow-icon--active': stepActiveList.indexOf(item) > -1}"
+              >
+            </div>
+            <div
+              class="theorem-card-detail__step-content"
+              :class="{'theorem-card-detail__step-content--active': stepActiveList.indexOf(item) > -1}"
+            >
+              <div
+                class="theorem-card-detail__step-wrap"
+                v-html="item.htmlContent"
+              />
+            </div>
+            <div
+              v-if="item.import_function"
+              class="theorem-card-detail__step-connect-line"
+              @click="onConnectClick(item.import_function)"
             />
           </div>
           <div
-            v-if="item.import_function"
-            class="theorem-card-detail__step-connect-line"
-            @click="onConnectClick(item.import_function)"
-          />
+            v-if="index !== covertStepDelta.length - 1"
+            @click="isPopupShow = true"
+          >
+            <div class="theorem-card-detail__step-hint" />
+          </div>
+        </section>
+      </div>
+    </div>
+    <!-- note popup -->
+    <div
+      v-if="isPopupShow"
+      class="theorem-card-detail__note-mask"
+    >
+      <div class="theorem-card-detail__note">
+        <p class="theorem-card-detail__note-title">
+          NOTE
+        </p>
+        <div class="theorem-card-detail__note-content">
+          <span>
+            test
+          </span>
+        </div>
+        <div
+          class="theorem-card-detail__note-close"
+          @click="isPopupShow = false"
+        >
+          <v-icon class="theorem-card-detail__note-close-icon">
+            $close
+          </v-icon>
         </div>
       </div>
     </div>
@@ -69,7 +104,8 @@ export default {
   },
   data () {
     return {
-      stepActiveList: []
+      stepActiveList: [],
+      isPopupShow: false
     }
   },
   computed: {
@@ -212,6 +248,10 @@ export default {
     margin-top: 28px;
   }
 
+  &__step-group {
+    width: 100%;
+  }
+
   &__arrow-icon {
     width: 24px;
     height: 12px;
@@ -237,15 +277,21 @@ export default {
     position: relative;
 
     &--first {
-      background: #f6ebda;
+      background: #efefef;
     }
 
     &--second {
-      background: #e3d2c6;
+      background: #e5e5e5;
     }
 
     &--third {
-      background: #e3c6c6;
+      background: #cecece;
+      color: #fff;
+    }
+
+    &--fourth {
+      background: #ababab;
+      color: #fff;
     }
   }
 
@@ -259,6 +305,7 @@ export default {
     padding: 10px 15px;
     overflow: scroll;
     display: none;
+    color: #8e8e8e;
 
     &--active {
       display: block;
@@ -289,5 +336,78 @@ export default {
     top: 30px;
     left: -100px;
   }
+
+  &__step-hint {
+    width: 97px;
+    height: 60px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('~assets/img/icon/theorem-hint.svg');
+  }
+
+  &__note-mask {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($color: #000000, $alpha: 0.9);
+    z-index: 9999999999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__note {
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.4);
+    border-radius: 4px;
+    background: #fffef4;
+    width: 83%;
+    height: 60%;
+    padding: 25px;
+    position: relative;
+  }
+
+  &__note-title {
+    font-size: 24px;
+    color: #556978;
+    font-weight: bold;
+    padding-bottom: 8px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 102%;
+      transform: translateX(-1%);
+      height: 2px;
+      background: #556978;
+      @include lessThan($--breakpoints-xs) {
+        width: 110%;
+        transform: translateX(-5%);
+      }
+    }
+  }
+
+  &__note-close {
+      border-radius: 50%;
+      background: #8e8e8e;
+      color: white;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: -15px;
+      right: -15px;
+    }
+
+    &__note-close-icon {
+      color: white !important;
+    }
 }
 </style>
