@@ -3,8 +3,8 @@
   <div
     class="theorem-card"
     :style="
-      `left: ${cardInfo.sort * 220 + 40}px;
-      top: ${(cardInfo.randomTop + 1) * 15}vh`
+      `left: ${cardInfo.sort * 210}px;
+      top: ${(cardInfo.randomTop + 1) * 50}px`
     "
     @click="onCardClick"
   >
@@ -109,6 +109,7 @@ export default {
     box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.7);
     padding: 15px 10px;
     position: relative;
+    min-height: 250px;
     img {
       width: 80%;
       margin-top: 15px;
