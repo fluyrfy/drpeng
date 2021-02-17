@@ -35,27 +35,27 @@ export default {
       activeItem: {},
       list: [
         {
-          title: '化學',
+          title: 'Chemistry',
           id: 1
         },
         {
-          title: '國文',
+          title: 'Chinese',
           id: 2
         },
         {
-          title: '數學',
+          title: 'Math',
           id: 3
         },
         {
-          title: '英文',
+          title: 'English',
           id: 4
         },
         {
-          title: '物理',
+          title: 'Physical',
           id: 5
         },
         {
-          title: '微積分',
+          title: 'Calculus',
           id: 6
         }
       ]
@@ -465,7 +465,7 @@ export default {
   height: 200px;
   transform: rotate(180deg);
   line-height: 200px;
-  font-size: 60px;
+  font-size: 40px;
   text-align: center;
   font-weight: bold;
   color: white;
