@@ -1,5 +1,6 @@
 <template>
   <div class="subject">
+    <header-menu />
     <loading :active.sync="isLoading" />
     <section
       class="subject__title-section d-flex justify-center align-center"
@@ -26,18 +27,17 @@
       v-if="chapterList.length > 0"
       :chapter-list="handleChapterList"
     />
-    <base-theorem-button />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
 import chapterList from '~/components/subject/chapterList'
-import baseTheoremButton from '~/components/base/baseTheoremButton'
+import headerMenu from '~/components/layout/headerMenu'
 export default {
   components: {
     'chapter-list': chapterList,
-    'base-theorem-button': baseTheoremButton
+    'header-menu': headerMenu
   },
   data () {
     return {
@@ -105,7 +105,7 @@ export default {
   padding-bottom: 22px;
 
   &__title-section {
-    padding-top: 29px;
+    padding-top: 90px;
     position: relative;
 
     h2 {
@@ -117,7 +117,7 @@ export default {
     width: 30px;
     height: 30px;
     position: absolute;
-    top: 32px;
+    top: 90px;
     left: 6.4%;
 
     img {

@@ -1,22 +1,22 @@
 <template>
   <div class="theorem-detail">
+    <header-menu />
     <loading :active.sync="isLoading" />
     <theorem-card-deatil
       :card-info="formulaDetail"
       :step-list="formulaStep"
     />
-    <base-subject-button />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import baseSubjectButton from '~/components/base/baseSubjectButton.vue'
 import theoremCardDetail from '~/components/theorem-detail/theoremCardDetail.vue'
+import headerMenu from '~/components/layout/headerMenu.vue'
 export default {
   components: {
     'theorem-card-deatil': theoremCardDetail,
-    'base-subject-button': baseSubjectButton
+    'header-menu': headerMenu
   },
   computed: {
     ...mapState('api', ['formulaDetail', 'formulaStep', 'isLoading'])
@@ -42,7 +42,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
-  padding-top: 2%;
+  padding-top: 80px;
   padding-bottom: 20px;
 }
 </style>
