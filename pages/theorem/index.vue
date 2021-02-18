@@ -37,7 +37,8 @@ export default {
     return {
       searchText: '',
       prevTop: null,
-      prevLeft: null
+      prevLeft: null,
+      prevScale: null
     }
   },
   computed: {
@@ -122,7 +123,13 @@ export default {
     },
     onSectionPinch (event) {
       const target = document.querySelector('.theorem-card-container')
-      target.style.transform = `scale(${event.scale})`
+      if (event.additionalEvent === 'pinchout') {
+        target.style.transform = `scale(${this.prevScale + event.scale})`
+        this.prevScale += event.scale
+      } else if (event.additionalEvent === 'pinchin') {
+        target.style.transform = `scale(${this.prevScale - event.scale})`
+        this.prevScale -= event.scale
+      }
     }
   }
 }
