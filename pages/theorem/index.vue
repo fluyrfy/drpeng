@@ -153,6 +153,6 @@ export default {
   width: 100vw;
   height: 100vh;
   position: relative;
-  transition: all .2s ease-in-out;
+  transition: transform .2s ease-in-out;
 }
 </style>
