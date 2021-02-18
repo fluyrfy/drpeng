@@ -39,7 +39,7 @@ export default {
       searchText: '',
       prevTop: null,
       prevLeft: null,
-      prevScale: null
+      prevScale: 1
     }
   },
   computed: {
@@ -124,17 +124,25 @@ export default {
     },
     onSectionPinch (event) {
       const target = document.querySelector('.theorem-card-container')
-      if (event.additionalEvent === 'pinchout') {
-        target.style.transform = `scale(${this.prevScale + event.scale})`
-      } else {
-        target.style.transform = `scale(${this.prevScale - event.scale < 0 ? 0.1 : this.prevScale - event.scale})`
+      if (event.additionalEvent === 'pinchout' && this.prevScale === 0.5) {
+        target.style.transform = 'scale(1)'
+      } else if (event.additionalEvent === 'pinchout' && this.prevScale === 1) {
+        target.style.transform = 'scale(2)'
+      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 2) {
+        target.style.transform = 'scale(1)'
+      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 1) {
+        target.style.transform = 'scale(0.5)'
       }
     },
     onSectionPinchEnd (event) {
-      if (event.additionalEvent === 'pinchout') {
-        this.prevScale += event.scale
-      } else {
-        this.prevScale = this.prevScale - event.scale < 0 ? 0.1 : this.prevScale - event.scale
+      if (event.additionalEvent === 'pinchout' && this.prevScale === 0.5) {
+        this.prevScale = 1
+      } else if (event.additionalEvent === 'pinchout' && this.prevScale === 1) {
+        this.prevScale = 2
+      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 2) {
+        this.prevScale = 1
+      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 1) {
+        this.prevScale = 0.5
       }
     }
   }
