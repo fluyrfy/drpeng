@@ -124,25 +124,17 @@ export default {
     },
     onSectionPinch (event) {
       const target = document.querySelector('.theorem-card-container')
-      if (event.additionalEvent === 'pinchout' && this.prevScale === 0.5) {
-        target.style.transform = 'scale(1)'
-      } else if (event.additionalEvent === 'pinchout' && this.prevScale === 1) {
-        target.style.transform = 'scale(2)'
-      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 2) {
-        target.style.transform = 'scale(1)'
-      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 1) {
-        target.style.transform = 'scale(0.5)'
+      if (event.additionalEvent === 'pinchout') {
+        target.style.transform = `scale(${this.prevScale * 2})`
+      } else {
+        target.style.transform = `scale(${this.prevScale / 2})`
       }
     },
     onSectionPinchEnd (event) {
-      if (event.additionalEvent === 'pinchout' && this.prevScale === 0.5) {
-        this.prevScale = 1
-      } else if (event.additionalEvent === 'pinchout' && this.prevScale === 1) {
-        this.prevScale = 2
-      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 2) {
-        this.prevScale = 1
-      } else if (event.additionalEvent !== 'pinchout' && this.prevScale === 1) {
-        this.prevScale = 0.5
+      if (event.additionalEvent === 'pinchout') {
+        this.prevScale = this.prevScale * 2
+      } else {
+        this.prevScale = this.prevScale / 2
       }
     }
   }
