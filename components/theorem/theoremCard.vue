@@ -1,12 +1,12 @@
 <template>
   <!-- eslint-disable vue/no-v-html -->
   <div
+    v-hammer:tap="(event) => onCardTap(event)"
     class="theorem-card"
     :style="
       `left: ${cardInfo.sort * 210}px;
       top: ${(cardInfo.randomTop + 1) * 50}px`
     "
-    @click="onCardClick"
   >
     <div class="theorem-card__title-group d-flex justify-center align-center">
       <img
@@ -51,6 +51,11 @@ export default {
       default: () => ({})
     }
   },
+  data () {
+    return {
+      tapCount: 0
+    }
+  },
   mounted () {
     setTimeout(() => {
       this.renderMathJax()
@@ -65,14 +70,22 @@ export default {
       /* eslint-disable-next-line */
       MathJax.Hub.Queue(['Typeset', MathJax.Hub])
     },
-    onCardClick () {
-      this.$router.push({
-        name: 'theorem-detail',
-        query: {
-          id: this.cardInfo.id,
-          subject: this.$route.query.subjectCategory
-        }
-      })
+    onCardTap () {
+      this.tapCount += 1
+
+      setTimeout(() => {
+        this.tapCount = 0
+      }, 500)
+
+      if (this.tapCount >= 2) {
+        this.$router.push({
+          name: 'theorem-detail',
+          query: {
+            id: this.cardInfo.id,
+            subject: this.$route.query.subjectCategory
+          }
+        })
+      }
     }
   }
 }
