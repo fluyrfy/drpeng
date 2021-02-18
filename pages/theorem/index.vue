@@ -154,5 +154,6 @@ export default {
   height: 100vh;
   position: relative;
   transition: transform .2s ease-in-out;
+  transform-origin: center;
 }
 </style>
