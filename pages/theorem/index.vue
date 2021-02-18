@@ -127,14 +127,14 @@ export default {
       if (event.additionalEvent === 'pinchout') {
         target.style.transform = `scale(${this.prevScale + event.scale})`
       } else {
-        target.style.transform = `scale(${this.prevScale - event.scale < 0 ? 0.01 : this.prevScale - event.scale})`
+        target.style.transform = `scale(${this.prevScale - event.scale < 0 ? 0.1 : this.prevScale - event.scale})`
       }
     },
     onSectionPinchEnd (event) {
       if (event.additionalEvent === 'pinchout') {
         this.prevScale += event.scale
       } else {
-        this.prevScale = this.prevScale - event.scale < 0 ? 0.01 : this.prevScale - event.scale
+        this.prevScale = this.prevScale - event.scale < 0 ? 0.1 : this.prevScale - event.scale
       }
     }
   }
