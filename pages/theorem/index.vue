@@ -11,7 +11,6 @@
       v-hammer:panend="(event) => onSectionPanEnd(event)"
       v-hammer:pan="(event) => onSectionPan(event)"
       v-hammer:pinch="(event) => onSectionPinch(event)"
-      v-hammer:pinchend="(event) => onSectionPinchEnd(event)"
       class="theorem-card-section"
     >
       <div class="theorem-card-container">
@@ -38,8 +37,7 @@ export default {
     return {
       searchText: '',
       prevTop: null,
-      prevLeft: null,
-      prevScale: 1
+      prevLeft: null
     }
   },
   computed: {
@@ -124,11 +122,7 @@ export default {
     },
     onSectionPinch (event) {
       const target = document.querySelector('.theorem-card-container')
-      const scaleNow = this.prevScale + event.scale
-      target.style.transform = `scale(${scaleNow})`
-    },
-    onSectionPinchEnd (event) {
-      this.prevScale = event.scale
+      target.style.transform = `scale(${event.scale})`
     }
   }
 }
