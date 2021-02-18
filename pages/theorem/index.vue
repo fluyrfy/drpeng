@@ -10,6 +10,7 @@
     <div
       v-hammer:panend="(event) => onSectionPanEnd(event)"
       v-hammer:pan="(event) => onSectionPan(event)"
+      v-hammer:pinch="(event) => onSectionPinch(event)"
       class="theorem-card-section"
     >
       <div class="theorem-card-container">
@@ -111,13 +112,17 @@ export default {
       target.style.top = `${this.prevTop + event.deltaY}px`
       target.style.left = `${this.prevLeft + event.deltaX}px`
     },
-    onSectionPanEnd (event) {
+    onSectionPanEnd () {
       const target = document.querySelector('.theorem-card-container')
       const topPixelIndex = target.style.top.indexOf('px')
       const leftPixelIndex = target.style.left.indexOf('px')
 
       this.prevTop = parseInt(target.style.top.slice(0, topPixelIndex))
       this.prevLeft = parseInt(target.style.left.slice(0, leftPixelIndex))
+    },
+    onSectionPinch (event) {
+      const target = document.querySelector('.theorem-card-container')
+      target.style.transform = `scale(${event.scale})`
     }
   }
 }
