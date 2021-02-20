@@ -259,9 +259,10 @@ export default {
     top: 23.5px;
     right: 20px;
     margin-top: 0;
+    transform: rotate(180deg);
 
     &--active {
-      transform: rotate(180deg);
+      transform: rotate(0deg);
     }
   }
 

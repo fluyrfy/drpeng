@@ -30,9 +30,10 @@
           :key="num"
           class="theorem-card__step theorem-card__step--first"
           :class="{
-            'theorem-card__step--first': num % 3 === 1,
-            'theorem-card__step--second': num % 3 === 2,
-            'theorem-card__step--third': num % 3 === 0
+            'theorem-card__step--first': num % 4 === 1,
+            'theorem-card__step--second': num % 4 === 2,
+            'theorem-card__step--third': num % 4 === 3,
+            'theorem-card__step--fourth': num % 4 === 0
           }"
         >
           {{ num > 9 ? `STEP ${num}` : `STEP 0${num}` }}
@@ -161,18 +162,25 @@ export default {
       top: 11px;
       right: 20px;
       margin-top: 0;
+      transform: rotate(180deg);
     }
 
     &--first {
-      background: #f6ebda;
+      background: #efefef;
     }
 
     &--second {
-      background: #e3d2c6;
+      background: #e5e5e5;
     }
 
     &--third {
-      background: #e3c6c6;
+      background: #cecece;
+      color: #fff;
+    }
+
+    &--fourth {
+      background: #ababab;
+      color: #fff;
     }
   }
 }
