@@ -5,11 +5,11 @@
   "author": "s0939859391",
   "private": true,
   "scripts": {
-    "dev": "ENV=prod nuxt",
-    "build": "ENV=prod nuxt build",
-    "start": "ENV=prod nuxt start",
-    "generate": "ENV=prod nuxt generate",
-    "generate-test": "ENV=dev nuxt generate",
+    "dev": "cross-env ENV=prod nuxt",
+    "build": "cross-env ENV=prod nuxt build",
+    "start": "cross-env ENV=prod nuxt start",
+    "generate": "cross-env ENV=prod nuxt generate",
+    "generate-test": "cross-env ENV=dev nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
@@ -30,9 +30,10 @@
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.0.1",
+    "cross-env": "^7.0.3",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": "1.0.0",
     "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2"
+    "sass-loader": "10.1.1"
   }
 }
