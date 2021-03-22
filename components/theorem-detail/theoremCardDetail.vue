@@ -56,6 +56,7 @@
           </div>
           <div
             v-if="index !== covertStepDelta.length - 1"
+            class="d-flex justify-end"
             @click="isPopupShow = true"
           >
             <div class="theorem-card-detail__step-hint" />
