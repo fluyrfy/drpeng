@@ -29,7 +29,7 @@
             }"
           >
             <div
-              class="d-flex justify-center align-center theorem-card-detail__step-title"
+              class="d-flex align-center justify-space-between theorem-card-detail__step-title"
               @click="onStepTitleClick(item)"
             >
               {{ index + 1 > 9 ? `STEP ${index + 1}` : `STEP 0${index + 1}` }}
@@ -217,7 +217,7 @@ export default {
 
   &__title-group {
     background: #556978;
-    padding: 20px 0 19px 19px;
+    padding: 13px 0 13px 20px;
     border-radius: 6px 6px 0 0;
     box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.7);
   }
@@ -254,11 +254,8 @@ export default {
   }
 
   &__arrow-icon {
-    width: 24px;
-    height: 12px;
-    position: absolute;
-    top: 23.5px;
-    right: 20px;
+    width: 19px;
+    height: 9px;
     margin-top: 0;
     transform: rotate(180deg);
 
@@ -272,7 +269,7 @@ export default {
     flex-direction: column;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.16);
     color: #8e8e8e;
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
     line-height: 0.17;
     width: 100%;
@@ -299,7 +296,8 @@ export default {
 
   &__step-title {
     width: 100%;
-    height: 59px;
+    height: 36px;
+    padding: 0 15px;
   }
 
   &__step-content {
@@ -335,13 +333,13 @@ export default {
     height: 2px;
     background: #c7c7c7;
     position: absolute;
-    top: 30px;
+    top: 18px;
     left: -100px;
   }
 
   &__step-hint {
-    width: 97px;
-    height: 60px;
+    width: 36px;
+    height: 50px;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

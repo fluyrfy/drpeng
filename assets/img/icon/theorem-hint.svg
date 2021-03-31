@@ -1,16 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="97" height="60" viewBox="0 0 97 60">
-    <g transform="translate(-50 -569.5)">
-        <path fill="none" stroke="#f99130" stroke-width="2px" d="M0 0L0 60" transform="translate(68 569.5)"/>
-        <rect width="97" height="32" fill="#f99130" rx="16" transform="translate(50 583)"/>
-        <g fill="none" stroke="#fffef4" stroke-width="2px" transform="translate(54 585)">
-            <circle cx="14" cy="14" r="14" stroke="none"/>
-            <circle cx="14" cy="14" r="13"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="36" height="50" viewBox="0 0 36 50">
+    <g>
+        <g transform="translate(-169 -431.5)">
+            <path fill="none" stroke="#f99130" stroke-width="2px" d="M0 0L0 50" transform="translate(187.5 431.5)"/>
+            <rect width="36" height="36" fill="#f99130" rx="18" transform="translate(169 438)"/>
+            <g fill="none" stroke="#fffef4" stroke-width="2px" transform="translate(172 441)">
+                <circle cx="15" cy="15" r="15" stroke="none"/>
+                <circle cx="15" cy="15" r="14"/>
+            </g>
+            <text fill="#fffef4" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="10px" font-weight="700" transform="translate(177 460)">
+                <tspan x="0" y="0">H!nt</tspan>
+            </text>
         </g>
-        <text fill="#fffef4" font-family="NotoSansTC-Regular, Noto Sans TC" font-size="20px" letter-spacing="0.1em" transform="translate(65 607)">
-            <tspan x="0" y="0">!</tspan>
-        </text>
-        <text fill="#fffef4" font-family="HelveticaNeue-Bold, Helvetica Neue" font-size="20px" font-weight="700" transform="translate(94 606)">
-            <tspan x="0" y="0">Hint</tspan>
-        </text>
     </g>
 </svg>
