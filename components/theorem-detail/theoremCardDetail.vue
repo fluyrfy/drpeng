@@ -55,11 +55,13 @@
             />
           </div>
           <div
-            v-if="index !== covertStepDelta.length - 1"
+            v-if="index !== covertStepDelta.length - 1 && item.hint"
             class="d-flex justify-end"
-            @click="isPopupShow = true"
           >
-            <div class="theorem-card-detail__step-hint" />
+            <div
+              class="theorem-card-detail__step-hint"
+              @click="onHintClick(item.hint)"
+            />
           </div>
         </section>
       </div>
@@ -75,7 +77,7 @@
         </p>
         <div class="theorem-card-detail__note-content">
           <span>
-            test
+            {{ hintContent }}
           </span>
         </div>
         <div
@@ -106,7 +108,8 @@ export default {
   data () {
     return {
       stepActiveList: [],
-      isPopupShow: false
+      isPopupShow: false,
+      hintContent: null
     }
   },
   computed: {
@@ -115,7 +118,7 @@ export default {
         return []
       }
 
-      const covertList = this.stepList.map((item) => {
+      const covertList = this.stepList.map((item, index) => {
         const obj = Object.assign({}, item)
 
         const ops = JSON.parse(obj.delta).ops
@@ -143,6 +146,8 @@ export default {
         })
 
         obj.htmlContent = html
+
+        obj.hint = `這是提示${index + 1}`
 
         return obj
       })
@@ -204,6 +209,10 @@ export default {
           id
         }
       })
+    },
+    onHintClick (hint) {
+      this.isPopupShow = true
+      this.hintContent = hint
     }
   }
 }
