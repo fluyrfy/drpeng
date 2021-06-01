@@ -102,7 +102,7 @@ export default {
   height: 60px;
   background: #707070;
   color: #fff;
-  z-index: 99999;
+  z-index: 200;
   transition: all .5s;
   overflow: hidden;
 
