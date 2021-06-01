@@ -102,19 +102,27 @@
         </div>
       </div>
     </div>
+    <!-- ad popup -->
+    <base-ad-dialog v-model="dialog" />
+    <!-- ad popup end -->
   </div>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import baseAdDialog from '~/components/base/baseAdDialog'
 export default {
+  components: {
+    'base-ad-dialog': baseAdDialog
+  },
   data () {
     return {
       backParams: null,
       isVideoActive: false,
       isShowPopup: false,
       activeId: null,
-      activeName: 'test'
+      activeName: 'test',
+      dialog: true
     }
   },
   computed: {

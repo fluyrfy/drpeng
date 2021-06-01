@@ -6,6 +6,9 @@
       :card-info="formulaDetail"
       :step-list="formulaStep"
     />
+    <!-- ad popup -->
+    <base-ad-dialog v-model="dialog" />
+    <!-- ad popup end -->
   </div>
 </template>
 
@@ -13,10 +16,17 @@
 import { mapActions, mapState } from 'vuex'
 import theoremCardDetail from '~/components/theorem-detail/theoremCardDetail.vue'
 import headerMenu from '~/components/layout/headerMenu.vue'
+import baseAdDialog from '~/components/base/baseAdDialog'
 export default {
   components: {
     'theorem-card-deatil': theoremCardDetail,
-    'header-menu': headerMenu
+    'header-menu': headerMenu,
+    'base-ad-dialog': baseAdDialog
+  },
+  data () {
+    return {
+      dialog: true
+    }
   },
   computed: {
     ...mapState('api', ['formulaDetail', 'formulaStep', 'isLoading'])
