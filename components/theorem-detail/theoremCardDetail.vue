@@ -54,13 +54,11 @@
               @click="onConnectClick(item.import_function)"
             />
           </div>
-          <div
-            v-if="index !== covertStepDelta.length - 1 && item.hint"
-            class="d-flex justify-end"
-          >
+          <div class="d-flex justify-end theorem-card-detail__step-hint-container">
             <div
+              v-if="index !== covertStepDelta.length - 1 && covertStepDelta[index + 1].hintContent"
               class="theorem-card-detail__step-hint"
-              @click="onHintClick(item.hint)"
+              @click="onHintClick(covertStepDelta[index + 1].hintContent)"
             />
           </div>
         </section>
@@ -76,9 +74,7 @@
           NOTE
         </p>
         <div class="theorem-card-detail__note-content">
-          <span>
-            {{ hintContent }}
-          </span>
+          <div v-html="hintContent" />
         </div>
         <div
           class="theorem-card-detail__note-close"
@@ -147,7 +143,33 @@ export default {
 
         obj.htmlContent = html
 
-        obj.hint = `這是提示${index + 1}`
+        if (obj.hint_delta) {
+          const ops = JSON.parse(obj.delta).ops
+
+          const QuillDeltaToHtmlConverter = require('quill-delta-to-html').QuillDeltaToHtmlConverter
+          const converter = new QuillDeltaToHtmlConverter(ops)
+
+          converter.renderCustomWith((op) => {
+            if (op.insert.value) {
+              const val = op.insert.value
+              return `<span class="ql-mathjax" contenteditable="false">${this.tex2svg(val)}</span>`
+            } else {
+              return 'Unmanaged custom blot!'
+            }
+          })
+
+          const html = converter.convert()
+
+          /* eslint-disable-next-line */
+          MathJax.Hub.Queue(['Typeset', MathJax.Hub])
+
+          /* eslint-disable-next-line */
+          MathJax.Hub.Config({
+            'HTML-CSS': { linebreaks: { automatic: true } }
+          })
+
+          obj.hintContent = html
+        }
 
         return obj
       })
@@ -344,6 +366,10 @@ export default {
     position: absolute;
     top: 18px;
     left: -100px;
+  }
+
+  &__step-hint-container {
+    height: 50px;
   }
 
   &__step-hint {
