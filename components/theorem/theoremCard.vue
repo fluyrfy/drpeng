@@ -131,7 +131,7 @@ export default {
   }
 
   &__formula {
-    width: 80%;
+    width: 100%;
     font-size: 12px;
   }
 

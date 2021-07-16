@@ -43,10 +43,9 @@
               class="theorem-card-detail__step-content"
               :class="{'theorem-card-detail__step-content--active': stepActiveList.indexOf(item) > -1}"
             >
-              <div
-                class="theorem-card-detail__step-wrap"
-                v-html="item.htmlContent"
-              />
+              <div class="theorem-card-detail__step-wrap">
+                <span v-html="item.htmlContent" />
+              </div>
             </div>
             <div
               v-if="item.import_function"
@@ -69,16 +68,16 @@
       v-if="isPopupShow"
       class="theorem-card-detail__note-mask"
     >
-      <div class="theorem-card-detail__note">
+      <div class="d-flex flex-column theorem-card-detail__note">
         <p class="theorem-card-detail__note-title">
           NOTE
         </p>
         <div class="theorem-card-detail__note-content">
-          <div v-html="hintContent" />
+          <span v-html="hintContent" />
         </div>
         <div
           class="theorem-card-detail__note-close"
-          @click="isPopupShow = false"
+          @click="onNoteCLoseClick"
         >
           <v-icon class="theorem-card-detail__note-close-icon">
             $close
@@ -233,8 +232,18 @@ export default {
       })
     },
     onHintClick (hint) {
+      const body = document.querySelector('body')
+      body.style.overflow = 'hidden'
       this.isPopupShow = true
       this.hintContent = hint
+      this.$nextTick(() => {
+        this.renderMathJax()
+      })
+    },
+    onNoteCLoseClick () {
+      const body = document.querySelector('body')
+      body.style.overflow = 'auto'
+      this.isPopupShow = false
     }
   }
 }
@@ -270,7 +279,7 @@ export default {
   }
 
   &__formula {
-    width: 80%;
+    width: 100%;
   }
 
   &__step-section {
@@ -333,17 +342,19 @@ export default {
 
   &__step-content {
     background: white;
-    padding: 10px 15px;
-    overflow: scroll;
-    display: none;
+    overflow: hidden;
+    height: 0;
     color: #8e8e8e;
 
     &--active {
-      display: block;
+      padding: 10px 15px;
+      overflow: scroll;
+      height: auto;
     }
   }
 
   &__step-wrap {
+    width: 100%;
     margin-top: 10px;
 
     &::v-deep {
@@ -425,6 +436,12 @@ export default {
         transform: translateX(-5%);
       }
     }
+  }
+
+  &__note-content {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: scroll;
   }
 
   &__note-close {
