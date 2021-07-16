@@ -279,7 +279,7 @@ export default {
   }
 
   &__formula {
-    width: 100%;
+    width: 90%;
   }
 
   &__step-section {
@@ -354,7 +354,7 @@ export default {
   }
 
   &__step-wrap {
-    width: 100%;
+    width: 90%;
     margin-top: 10px;
 
     &::v-deep {
@@ -439,7 +439,7 @@ export default {
   }
 
   &__note-content {
-    width: 100%;
+    width: 90%;
     flex-grow: 1;
     overflow-y: scroll;
   }
