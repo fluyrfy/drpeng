@@ -7,7 +7,8 @@
       </p>
       <div class="chapter-section__title-group d-flex">
         <div class="chapter-section__title-group--back-button">
-          <nuxt-link
+          <!-- 原本的寫法，先留著，等搞清楚哪一個url出錯再回來nuxt-link -->
+          <!-- <nuxt-link
             v-if="backParams"
             :to="{
               name: 'subject-map-subjectCategory-subject-category',
@@ -15,9 +16,11 @@
                 category: backParams
               }
             }"
-          >
+          > -->
+          <a @click="goBack">
             <img src="~/assets/img/icon/back-icon-white.svg">
-          </nuxt-link>
+          </a>
+          <!-- </nuxt-link> -->
         </div>
         <h3>
           {{ sectionNow.name }}
@@ -170,6 +173,9 @@ export default {
     })
   },
   methods: {
+    goBack () {
+      this.$router.back()
+    },
     ...mapActions('api', ['getSection']),
     tex2svg (mathml) {
       const MathJaxNode = document.createElement('DIV')
