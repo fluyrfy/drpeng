@@ -6,7 +6,7 @@
     content-class="base-ad-dialog"
     @input="(value) => passToParent(value)"
   >
-    <v-card class="base-ad-dialog__ad-box">
+    <v-card class="base-ad-dialog__ad-box" :style="{ backgroundImage: 'url(' + adURL + ')' }">
       <div
         class="base-ad-dialog__ad-close"
         @click="onCloseBtnClick"
@@ -29,7 +29,8 @@ export default {
   data () {
     return {
       time: 5,
-      timer: null
+      timer: null,
+      adURL: ''
     }
   },
   mounted () {
@@ -43,6 +44,7 @@ export default {
         }
       }, 1000)
     })
+    this.callAdApi()
   },
   methods: {
     passToParent (value) {
@@ -54,6 +56,13 @@ export default {
     onCloseBtnClick () {
       clearInterval(this.timer)
       this.passToParent(false)
+    },
+    // call廣告 api
+    callAdApi () {
+      const url = 'advert'
+      this.$axios.$get(url).then((res) => {
+        this.adURL = res.data.pic
+      })
     }
   }
 }
@@ -67,7 +76,6 @@ export default {
   &__ad-box {
     border-radius: 0 !important;
     height: 400px;
-    background-image: url('https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
