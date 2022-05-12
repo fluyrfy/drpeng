@@ -104,10 +104,15 @@
           </v-icon>
         </div>
       </div>
+
     </div>
     <!-- ad popup -->
     <base-ad-dialog v-model="dialog" />
     <!-- ad popup end -->
+    <button class="downloadBtn" v-if="textbook" @click="openFile">
+      <img src="~/assets/img/icon/file-icon.png">
+      textbook download
+    </button>
   </div>
 </template>
 
@@ -125,7 +130,9 @@ export default {
       isShowPopup: false,
       activeId: null,
       activeName: 'test',
-      dialog: true
+      dialog: true,
+      data: null,
+      textbook: null
     }
   },
   computed: {
@@ -171,6 +178,7 @@ export default {
     MathJax.Hub.Queue(() => {
       this.htmlAddHint()
     })
+    this.fetchData(id)
   },
   methods: {
     goBack () {
@@ -210,6 +218,16 @@ export default {
           vm.isShowPopup = true
         })
       })
+    },
+    async fetchData (id) {
+      const dataURL = `section/${id}`
+      const data = await this.$axios.$get(dataURL)
+      this.data = data
+      this.textbook = data.textbook
+    },
+    openFile () {
+      window.open(this.textbook)
+      return false
     }
   }
 }
@@ -415,6 +433,24 @@ export default {
 
     &--close-icon {
       color: white !important;
+    }
+  }
+  .downloadBtn {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    background-color: #7c98ad;
+    color: #fff;
+    font-size: 16px;
+    font-family: "buttonFont";
+    line-height: 50px;
+
+    & img {
+      widows: 19px;
+      height: 24px;
+      margin-right: 15px;
+      vertical-align: middle;
     }
   }
 }
